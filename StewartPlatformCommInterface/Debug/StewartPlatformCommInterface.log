@@ -1,5 +1,2 @@
-﻿  main.cpp
-Platform.obj : error LNK2005: "public: static float const MotorParams::cylinderStrokeMM" (?cylinderStrokeMM@MotorParams@@2MB) already defined in main.obj
-Platform.obj : error LNK2005: "public: static float const MotorParams::cylinderLeadMM" (?cylinderLeadMM@MotorParams@@2MB) already defined in main.obj
-Platform.obj : error LNK2005: "public: static float const MotorParams::cylinderGearRatio" (?cylinderGearRatio@MotorParams@@2MB) already defined in main.obj
-C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\Debug\StewartPlatformCommInterface.exe : fatal error LNK1169: one or more multiply defined symbols found
+﻿  Platform.cpp
+  StewartPlatformCommInterface.vcxproj -> C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\Debug\StewartPlatformCommInterface.exe

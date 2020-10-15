@@ -8,10 +8,6 @@ struct MotorParams {
 	const static float cylinderGearRatio;
 };
 
-const float MotorParams::cylinderStrokeMM = 475.0f;
-const float MotorParams::cylinderLeadMM = 5.0f;
-const float MotorParams::cylinderGearRatio = 1.0f;
-
 struct CxRegister {
 	const static int32_t resetRegister = 0x0;
 };
@@ -75,30 +71,30 @@ struct UDPWordOffsets {
 };
 
 struct UDPData {
-	const short hostTxPort = 8410;
-	const short hostRxPort = 8410;
-	const short platformTxPort = 7408;
-	const short platformRxPort = 7408;
+	static short hostTxPort;
+	static short hostRxPort;
+	static short platformTxPort;
+	static short platformRxPort;
 
-	const unsigned short confirmCode = 0x55AA;
-	const unsigned short passCode = 0x0000;
-	const unsigned short functionCode = 0x1401;
-	const unsigned short channelCode = 0x0001;
+	static unsigned short confirmCode;
+	static unsigned short passCode;
+	static unsigned short functionCode;
+	static unsigned short channelCode;
 
-	const unsigned short recieverCode = 0xFFFF;
-	const unsigned short transmitterCode = 0xFFFF;
+	static unsigned short recieverCode;
+	static unsigned short transmitterCode;
 
-	const int32_t line = 0x00000000;
-	const int32_t time = 0x00000000;
-	const int32_t xPos = 0x00000000;
-	const int32_t yPos = 0x00000000;
-	const int32_t zPos = 0x00000000;
-	const int32_t uPos = 0x00000000;
-	const int32_t vPos = 0x00000000;
-	const int32_t wPos = 0x00000000;
+	static int32_t line;
+	static int32_t time;
+	static int32_t xPos;
+	static int32_t yPos;
+	static int32_t zPos;
+	static int32_t uPos;
+	static int32_t vPos;
+	static int32_t wPos;
 
-	const unsigned short digitalOutCode = 0x0000;
-	const unsigned short dac1Code = 0x0000;
-	const unsigned short dac2Code = 0x0000;
-	const unsigned short extDigitalOutCode = 0x0000;
+	static unsigned short digitalOutCode;
+	static unsigned short dac1Code;
+	static unsigned short dac2Code;
+	static unsigned short extDigitalOutCode;
 };
