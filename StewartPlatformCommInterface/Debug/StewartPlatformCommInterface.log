@@ -1,2 +1,8 @@
 ﻿  Platform.cpp
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(96,73): warning C4244: 'argument': conversion from 'int32_t' to 'float', possible loss of data
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(97,73): warning C4244: 'argument': conversion from 'int32_t' to 'float', possible loss of data
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(98,73): warning C4244: 'argument': conversion from 'int32_t' to 'float', possible loss of data
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(99,73): warning C4244: 'argument': conversion from 'int32_t' to 'float', possible loss of data
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(100,73): warning C4244: 'argument': conversion from 'int32_t' to 'float', possible loss of data
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(101,73): warning C4244: 'argument': conversion from 'int32_t' to 'float', possible loss of data
   StewartPlatformCommInterface.vcxproj -> C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\Debug\StewartPlatformCommInterface.exe

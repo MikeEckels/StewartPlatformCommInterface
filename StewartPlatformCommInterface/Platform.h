@@ -3,8 +3,10 @@
 
 class Platform {
 private:
-	unsigned short udpTxBuffer[25];
+	short udpTxBuffer[25];
 	unsigned char udpSendBuffer[50];
+
+	//int udpTxBufferSize = sizeof()
 
 	int MergeBytesToWord(unsigned char Byte1, unsigned char Byte2);
 
@@ -12,7 +14,7 @@ private:
 	unsigned short U32HighBytesToWord(uint32_t data);
 	unsigned short U32LowBytesToWord(uint32_t data);
 
-	void ShortArryToByteArry(unsigned short* shortArry, unsigned char* byteArry, int shortArrySize);
+	void ShortArryToByteArry(short* shortArry, unsigned char* byteArry, int shortArrySize);
 
 	uint32_t GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev);
 	

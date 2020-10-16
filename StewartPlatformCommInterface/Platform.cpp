@@ -1,12 +1,14 @@
 #include "Platform.h"
-#include <iostream>
+#include "Network.h"
 
-//Motor Parameters
+WSASession Session;
+UDPSocket Socket;
+//Initializing Motor Parameters
 const float MotorParams::cylinderStrokeMM = 475.0f;
 const float MotorParams::cylinderLeadMM = 5.0f;
 const float MotorParams::cylinderGearRatio = 1.0f;
 
-//Platform UDP ByteStream
+//Initializing Platform UDP ByteStream
 short UDPData::hostTxPort = 8410;
 short UDPData::hostRxPort = 8410;
 short UDPData::platformTxPort = 7408;
@@ -35,12 +37,12 @@ unsigned short UDPData::dac2Code = 0x0000;
 unsigned short UDPData::extDigitalOutCode = 0x0000;
 
 void Platform::Initialize() {
-	//float foobar = MotorParams::cylinderGearRatio;
+	
 }
 
 void Platform::Reset() {
-	UDPData::functionCode = (unsigned short)FunctionCodes::dnRegisterWrite;
-	UDPData::channelCode = (unsigned short)UDPRegisterChannels::writeCxRegisterChannel;
+	SetFunctionCode(FunctionCodes::dnRegisterWrite);
+	SetChannelCode(UDPRegisterChannels::writeCxRegisterChannel);
 	SetRegister(UDPData::channelCode, (unsigned short)CxRegister::resetRegister, 0);
 }
 
@@ -54,7 +56,7 @@ void Platform::Move() {
 	this->udpTxBuffer[UDPWordOffsets::lineHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::line);
 	this->udpTxBuffer[UDPWordOffsets::lineLowOffset] = (short)U32LowBytesToWord((uint32_t)UDPData::line);
 	this->udpTxBuffer[UDPWordOffsets::timeHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::time);
-	this->udpTxBuffer[UDPWordOffsets::lineLowOffset] = (short)U32LowBytesToWord((uint32_t)UDPData::time);
+	this->udpTxBuffer[UDPWordOffsets::timeLowOffset] = (short)U32LowBytesToWord((uint32_t)UDPData::time);
 	this->udpTxBuffer[UDPWordOffsets::xPosHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::xPos);
 	this->udpTxBuffer[UDPWordOffsets::xPosLowOffset] = (short)U32LowBytesToWord((uint32_t)UDPData::xPos);
 	this->udpTxBuffer[UDPWordOffsets::yPosHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::yPos);
@@ -71,23 +73,28 @@ void Platform::Move() {
 	this->udpTxBuffer[UDPWordOffsets::dac1Offset] = (short)FlipUShortBytes(UDPData::dac1Code);
 	this->udpTxBuffer[UDPWordOffsets::dac2Offset] = (short)FlipUShortBytes(UDPData::dac2Code);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (sizeof(this->udpTxBuffer) / sizeof(this->udpTxBuffer[0])));
-	//SEND UDP
+	//Socket.SendTo()
 }
 
 void Platform::SetFunctionCode(int32_t code) {
-
+	UDPData::functionCode = (unsigned short)code;
 }
 
 void Platform::SetChannelCode(int32_t code) {
-
+	UDPData::channelCode = (unsigned short)code;
 }
 
 void Platform::SetMoveTimeMs(int32_t ms) {
-
+	UDPData::time = ms;
 }
 
 void Platform::SetPositon(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
-
+	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, x, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::uPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, u, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::vPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, v, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::wPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, w, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
 }
 
 void Platform::SetRegister(unsigned short channelCode, unsigned short registerAddress, short value) {
@@ -103,10 +110,6 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	this->udpTxBuffer[UDPWordOffsets::registerVisitDataBaseOffset] = (short)FlipUShortBytes((unsigned short)value);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (sizeof(this->udpTxBuffer) / sizeof(this->udpTxBuffer[0])));
 	//SEND UDP
-	for (int i = 0; i <= 49; i++) {
-		std::cout << (int)this->udpSendBuffer[i];
-		std::cout << "+";
-	}
 }
 
 uint32_t Platform::GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev) {
@@ -150,7 +153,7 @@ unsigned short Platform::U32LowBytesToWord(uint32_t data) {
 	return lowByte;
 }
 
-void Platform::ShortArryToByteArry(unsigned short* shortArry, unsigned char* byteArry, int shortArrySize) {
+void Platform::ShortArryToByteArry(short* shortArry, unsigned char* byteArry, int shortArrySize) {
 	for (int i = 0; i <= shortArrySize; i++) {
 		unsigned short temp = this->udpTxBuffer[i];
 		unsigned char msb, lsb;
