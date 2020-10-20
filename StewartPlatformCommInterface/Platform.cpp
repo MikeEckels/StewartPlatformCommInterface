@@ -1,12 +1,19 @@
 #include "Platform.h"
-#include "Network.h"
 
-WSASession Session;
-UDPSocket Socket;
+//Initializing Platform Mechanical Parameters
+const double PlatformParams::basePlateRadius = 500.0;
+const double PlatformParams::baseMountingAngle = 10.0;
+const double PlatformParams:: platformPlateRadius = 500.0;
+const double PlatformParams::platformMountingAngle = 10.0;
+const double PlatformParams::baseHeight = 930.0;
+const double PlatformParams::maximumLength = 475.0;
+double PlatformParams::baseActuatorLength = 0;//leave this alone
+
 //Initializing Motor Parameters
-const float MotorParams::cylinderStrokeMM = 475.0f;
+const float MotorParams::cylinderStrokeMM = (float)PlatformParams::maximumLength;
 const float MotorParams::cylinderLeadMM = 5.0f;
 const float MotorParams::cylinderGearRatio = 1.0f;
+const uint32_t MotorParams::cylinderPulsePerRev = 7500;
 
 //Initializing Platform UDP ByteStream
 short UDPData::hostTxPort = 8410;
@@ -37,7 +44,21 @@ unsigned short UDPData::dac2Code = 0x0000;
 unsigned short UDPData::extDigitalOutCode = 0x0000;
 
 void Platform::Initialize() {
-	
+	B1 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	B2 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	B3 = Vector3D(-PlatformParams::basePlateRadius * cos((60.0 + PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::basePlateRadius * sin((60.0 + PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	B4 = Vector3D(-PlatformParams::basePlateRadius * cos((60.0 - PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::basePlateRadius * sin((60.0 - PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	B5 = Vector3D(-PlatformParams::basePlateRadius * cos((60.0 - PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::basePlateRadius * sin((60.0 - PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	B6 = Vector3D(-PlatformParams::basePlateRadius * cos((60.0 + PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::basePlateRadius * sin((60.0 + PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+
+	P1 = Vector3D(PlatformParams::platformPlateRadius * cos((60.0 - PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::platformPlateRadius * sin((60.0 - PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	P2 = Vector3D(PlatformParams::platformPlateRadius * cos((60.0 - PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::platformPlateRadius * sin((60.0 - PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	P3 = Vector3D(PlatformParams::platformPlateRadius * cos((60.0 + PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::platformPlateRadius * sin((60.0 + PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	P4 = Vector3D(-PlatformParams::platformPlateRadius * cos((PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::platformPlateRadius * sin((PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	P5 = Vector3D(-PlatformParams::platformPlateRadius * cos((PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::platformPlateRadius * sin((PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+	P6 = Vector3D(PlatformParams::platformPlateRadius * cos((60.0 + PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::platformPlateRadius * sin((60.0 + PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
+
+	PlatformParams::baseActuatorLength = Platform::calculateIK(Vector3D(0, 0, 0)).U;
 }
 
 void Platform::Reset() {
@@ -72,7 +93,7 @@ void Platform::Move() {
 	this->udpTxBuffer[UDPWordOffsets::digitalOutOffset] = (short)FlipUShortBytes(UDPData::digitalOutCode);
 	this->udpTxBuffer[UDPWordOffsets::dac1Offset] = (short)FlipUShortBytes(UDPData::dac1Code);
 	this->udpTxBuffer[UDPWordOffsets::dac2Offset] = (short)FlipUShortBytes(UDPData::dac2Code);
-	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (sizeof(this->udpTxBuffer) / sizeof(this->udpTxBuffer[0])));
+	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
 	//Socket.SendTo()
 }
 
@@ -88,13 +109,17 @@ void Platform::SetMoveTimeMs(int32_t ms) {
 	UDPData::time = ms;
 }
 
-void Platform::SetPositon(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
-	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, x, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::uPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, u, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::vPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, v, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::wPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, w, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+bool Platform::SetPositon(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
+	ActuatorLengths aL = calculateIK(Vector3D((double)x, (double)y, (double)z), EulerAngles(Vector3D((double)u, (double)v, (double)w), EulerConstants::EulerOrderXYZS));//Change to relative rotation
+	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.X, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::uPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.U, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::vPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.V, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::wPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.W, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	
+	std::cout << aL.ToString() << std::endl;
+	return aL.constraintSuccess;
 }
 
 void Platform::SetRegister(unsigned short channelCode, unsigned short registerAddress, short value) {
@@ -108,8 +133,51 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	this->udpTxBuffer[UDPWordOffsets::registerStartAddressOffset] = (short)FlipUShortBytes(registerAddress);
 	this->udpTxBuffer[UDPWordOffsets::registerVisitNumberOffset] = (short)FlipUShortBytes(0x0001);
 	this->udpTxBuffer[UDPWordOffsets::registerVisitDataBaseOffset] = (short)FlipUShortBytes((unsigned short)value);
-	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (sizeof(this->udpTxBuffer) / sizeof(this->udpTxBuffer[0])));
+	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
 	//SEND UDP
+}
+
+
+ActuatorLengths Platform::calculateIK(Vector3D XYZ) {
+	XYZ.Z += PlatformParams::baseHeight;
+
+	L1 = P1 + XYZ - B1;
+	L2 = P2 + XYZ - B2;
+	L3 = P3 + XYZ - B3;
+	L4 = P4 + XYZ - B4;
+	L5 = P5 + XYZ - B5;
+	L6 = P6 + XYZ - B6;
+
+	bool withinConstraints = L1.Magnitude() - PlatformParams::baseActuatorLength > 0 && L1.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L2.Magnitude() - PlatformParams::baseActuatorLength > 0 && L2.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L3.Magnitude() - PlatformParams::baseActuatorLength > 0 && L3.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L4.Magnitude() - PlatformParams::baseActuatorLength > 0 && L4.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L5.Magnitude() - PlatformParams::baseActuatorLength > 0 && L5.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L6.Magnitude() - PlatformParams::baseActuatorLength > 0 && L6.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength;
+
+	return ActuatorLengths(L1.Magnitude() - PlatformParams::baseActuatorLength, L2.Magnitude() - PlatformParams::baseActuatorLength, L3.Magnitude() - PlatformParams::baseActuatorLength, L4.Magnitude() - PlatformParams::baseActuatorLength, L5.Magnitude() - PlatformParams::baseActuatorLength, L6.Magnitude() - PlatformParams::baseActuatorLength, withinConstraints);
+}
+
+ActuatorLengths Platform::calculateIK(Vector3D XYZ, EulerAngles YPR) {
+	XYZ.Z += PlatformParams::baseHeight;
+
+	Quaternion q = Rotation(YPR).GetQuaternion();
+
+	L1 = q.RotateVector(P1) + XYZ - B1;
+	L2 = q.RotateVector(P2) + XYZ - B2;
+	L3 = q.RotateVector(P3) + XYZ - B3;
+	L4 = q.RotateVector(P4) + XYZ - B4;
+	L5 = q.RotateVector(P5) + XYZ - B5;
+	L6 = q.RotateVector(P6) + XYZ - B6;
+
+	bool withinConstraints = L1.GetLength() - PlatformParams::baseActuatorLength > 0 && L1.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L2.GetLength() - PlatformParams::baseActuatorLength > 0 && L2.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L3.GetLength() - PlatformParams::baseActuatorLength > 0 && L3.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L4.GetLength() - PlatformParams::baseActuatorLength > 0 && L4.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L5.GetLength() - PlatformParams::baseActuatorLength > 0 && L5.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
+		L6.GetLength() - PlatformParams::baseActuatorLength > 0 && L6.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength;
+
+	return ActuatorLengths(L1.GetLength() - PlatformParams::baseActuatorLength, L2.GetLength() - PlatformParams::baseActuatorLength, L3.GetLength() - PlatformParams::baseActuatorLength, L4.GetLength() - PlatformParams::baseActuatorLength, L5.GetLength() - PlatformParams::baseActuatorLength, L6.GetLength() - PlatformParams::baseActuatorLength, withinConstraints);
 }
 
 uint32_t Platform::GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev) {

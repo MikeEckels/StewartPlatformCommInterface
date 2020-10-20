@@ -13,16 +13,58 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\InverseKinematics">
+      <UniqueIdentifier>{d1f13c17-98bf-41f2-bd46-fea91bd1b9e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InverseKinematics">
+      <UniqueIdentifier>{17db1aa9-d8ba-4ef6-83b4-1af37eac2080}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Network.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MotorControllerParams.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActuatorLengths.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Actuators.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisAngle.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionAngle.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerAngles.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerConstants.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerOrder.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathematics.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="RotationMatrix.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files\InverseKinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="YawPitchRoll.h">
+      <Filter>Header Files\InverseKinematics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +73,39 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisAngle.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionAngle.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerAngles.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerConstants.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerOrder.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathematics.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Rotation.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationMatrix.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="YawPitchRoll.cpp">
+      <Filter>Source Files\InverseKinematics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -19,13 +19,36 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Network.h" />
+    <ClInclude Include="ActuatorLengths.h" />
+    <ClInclude Include="Actuators.h" />
+    <ClInclude Include="AxisAngle.h" />
+    <ClInclude Include="DirectionAngle.h" />
+    <ClInclude Include="EulerAngles.h" />
+    <ClInclude Include="EulerConstants.h" />
+    <ClInclude Include="EulerOrder.h" />
+    <ClInclude Include="Mathematics.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="MotorControllerParams.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="Rotation.h" />
+    <ClInclude Include="RotationMatrix.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="YawPitchRoll.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AxisAngle.cpp" />
+    <ClCompile Include="DirectionAngle.cpp" />
+    <ClCompile Include="EulerAngles.cpp" />
+    <ClCompile Include="EulerConstants.cpp" />
+    <ClCompile Include="EulerOrder.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mathematics.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Rotation.cpp" />
+    <ClCompile Include="RotationMatrix.cpp" />
+    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="YawPitchRoll.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

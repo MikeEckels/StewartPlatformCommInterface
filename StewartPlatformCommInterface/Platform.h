@@ -1,12 +1,22 @@
 #pragma once
+#include "Vector.h"
+#include "Rotation.h"
+#include "Actuators.h"
+#include "ActuatorLengths.h"
 #include "MotorControllerParams.h"
 
 class Platform {
 private:
-	short udpTxBuffer[25];
-	unsigned char udpSendBuffer[50];
+	ActuatorLengths aL;
+	Vector3D B1, B2, B3, B4, B5, B6;
+	Vector3D P1, P2, P3, P4, P5, P6;
+	Vector3D L1, L2, L3, L4, L5, L6;
 
-	//int udpTxBufferSize = sizeof()
+	const static int udpTxBufferSize = 25;
+	const static int udpSendBufferSize = 50;
+
+	short udpTxBuffer[udpTxBufferSize];
+	unsigned char udpSendBuffer[udpSendBufferSize];
 
 	int MergeBytesToWord(unsigned char Byte1, unsigned char Byte2);
 
@@ -25,8 +35,10 @@ public:
 	void SetFunctionCode(int32_t code);
 	void SetChannelCode(int32_t code);
 	void SetMoveTimeMs(int32_t milliseconds);
-	void SetPositon(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
+	bool SetPositon(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
 	void SetRegister(unsigned short channelCode, unsigned short registerAddress, short value);
+	ActuatorLengths calculateIK(Vector3D XYZ);
+	ActuatorLengths calculateIK(Vector3D XYZ, EulerAngles YPR);
 
 	void Move();
 

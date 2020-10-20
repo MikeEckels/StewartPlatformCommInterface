@@ -1,10 +1,20 @@
 #pragma once
 #include <inttypes.h>
 
+struct PlatformParams {
+	const static double basePlateRadius;
+	const static double baseMountingAngle;
+	const static double platformPlateRadius;;
+	const static double platformMountingAngle;
+	const static double baseHeight;
+	const static double maximumLength;
+	static double baseActuatorLength;
+};
+
 struct MotorParams {
 	const static float cylinderStrokeMM;
 	const static float cylinderLeadMM;
-	const static uint32_t cylinderPulsePerRev = 7500;
+	const static uint32_t cylinderPulsePerRev;
 	const static float cylinderGearRatio;
 };
 
