@@ -66,6 +66,9 @@
     <ClInclude Include="YawPitchRoll.h">
       <Filter>Header Files\InverseKinematics</Filter>
     </ClInclude>
+    <ClInclude Include="UDPClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Platform.cpp">

@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "Rotation.h"
+#include "UDPClient.h"
 #include "Actuators.h"
 #include "ActuatorLengths.h"
 #include "MotorControllerParams.h"

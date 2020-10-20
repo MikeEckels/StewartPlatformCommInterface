@@ -1,5 +1,8 @@
 #include "Platform.h"
 
+boost::asio::io_service io_service;
+UDPClient client(io_service, "localhost", (std::to_string(UDPData::hostTxPort)));
+
 //Initializing Platform Mechanical Parameters
 const double PlatformParams::basePlateRadius = 500.0;
 const double PlatformParams::baseMountingAngle = 10.0;
@@ -94,7 +97,7 @@ void Platform::Move() {
 	this->udpTxBuffer[UDPWordOffsets::dac1Offset] = (short)FlipUShortBytes(UDPData::dac1Code);
 	this->udpTxBuffer[UDPWordOffsets::dac2Offset] = (short)FlipUShortBytes(UDPData::dac2Code);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
-	//Socket.SendTo()
+	//client.send();
 }
 
 void Platform::SetFunctionCode(int32_t code) {
@@ -134,7 +137,7 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	this->udpTxBuffer[UDPWordOffsets::registerVisitNumberOffset] = (short)FlipUShortBytes(0x0001);
 	this->udpTxBuffer[UDPWordOffsets::registerVisitDataBaseOffset] = (short)FlipUShortBytes((unsigned short)value);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
-	//SEND UDP
+	//client.send();
 }
 
 
