@@ -97,7 +97,7 @@ void Platform::Move() {
 	this->udpTxBuffer[UDPWordOffsets::dac1Offset] = (short)FlipUShortBytes(UDPData::dac1Code);
 	this->udpTxBuffer[UDPWordOffsets::dac2Offset] = (short)FlipUShortBytes(UDPData::dac2Code);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
-	//client.send();
+	client.send(this->udpSendBuffer);
 }
 
 void Platform::SetFunctionCode(int32_t code) {
@@ -137,7 +137,7 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	this->udpTxBuffer[UDPWordOffsets::registerVisitNumberOffset] = (short)FlipUShortBytes(0x0001);
 	this->udpTxBuffer[UDPWordOffsets::registerVisitDataBaseOffset] = (short)FlipUShortBytes((unsigned short)value);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
-	//client.send();
+	client.send(this->udpSendBuffer);
 }
 
 
