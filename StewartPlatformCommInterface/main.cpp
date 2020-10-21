@@ -13,7 +13,7 @@ int main() {
 	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
 	platform.SetMoveTimeMs(100);
 
-	moveIsSafe = platform.SetPositon(0, 0, 20, 0, 0, 0);
+	moveIsSafe = platform.SetPositon(0, 0, 0, 0, 0, 0);
 
 	if (moveIsSafe) {
 		std::cout << "[+] Move Command valid, Moving" << std::endl;
