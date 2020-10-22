@@ -17,11 +17,11 @@ public:
         socket_.close();
     }
 
-    void send(unsigned char* buff) {
+    void send(unsigned char* buff, int size) {
         //void send(const std::string& msg) {
             //socket_.send_to(boost::asio::buffer(msg, msg.size()), endpoint_);
-
-        const std::string stringBuff(reinterpret_cast<char const*>(buff));
+        const std::string stringBuff(reinterpret_cast<char const*>(buff), size);
+        std::cout << "String Buffer: " << stringBuff << "L" << std::endl;
         socket_.send_to(boost::asio::buffer(stringBuff, 50), endpoint_);
         std::cout << "Sending UDP data" << std::endl;
     }
@@ -48,13 +48,13 @@ private:
     boost::asio::ip::udp::endpoint sender_endpoint;
 };
 
-inline void runUDPClient(std::string portStr, unsigned char* buffer)
+inline void runUDPClient(std::string portStr, unsigned char* buffer, int size)
 {
     try
     {
         boost::asio::io_service io_service;
         udp_client client(io_service, "192.168.15.20", "8410");
-        client.send(buffer);
+        client.send(buffer, size);
         client.recieve_from();
     }
     catch (std::exception& e)

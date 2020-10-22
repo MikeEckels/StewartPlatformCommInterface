@@ -101,7 +101,7 @@ void Platform::Move() {
 		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
 	}
 	std::cout << std::endl;
-	runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer);
+	runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
 }
 
 //Sets Platform function register
@@ -148,7 +148,7 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
 	}
 	std::cout << std::endl;
-	runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer);
+	runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer, udpSendBufferSize);
 }
 
 //Calculates actuator lengths based off of X, Y, Z position
