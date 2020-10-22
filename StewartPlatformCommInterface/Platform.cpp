@@ -97,10 +97,10 @@ void Platform::Move() {
 	this->udpTxBuffer[UDPWordOffsets::dac1Offset] = (short)FlipUShortBytes(UDPData::dac1Code);
 	this->udpTxBuffer[UDPWordOffsets::dac2Offset] = (short)FlipUShortBytes(UDPData::dac2Code);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
-	for (int i = 0; i < 50; i++) {
+	/*for (int i = 0; i < 50; i++) {
 		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 	runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
 }
 
@@ -144,36 +144,26 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	this->udpTxBuffer[UDPWordOffsets::registerVisitNumberOffset] = (short)FlipUShortBytes(0x0001);
 	this->udpTxBuffer[UDPWordOffsets::registerVisitDataBaseOffset] = (short)FlipUShortBytes((unsigned short)value);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
-	for (int i = 0; i < 50; i++) {
+	/*for (int i = 0; i < 50; i++) {
 		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 	runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer, udpSendBufferSize);
 }
 
 //Calculates actuator lengths based off of X, Y, Z position
 ActuatorLengths Platform::calculateIK(Vector3D XYZ) {
-	XYZ.Z += PlatformParams::baseHeight;
+	EulerAngles ypr = EulerAngles(Vector3D(0, 0, 0), EulerConstants::EulerOrderXYZR);
 
-	L1 = P1 + XYZ - B1;
-	L2 = P2 + XYZ - B2;
-	L3 = P3 + XYZ - B3;
-	L4 = P4 + XYZ - B4;
-	L5 = P5 + XYZ - B5;
-	L6 = P6 + XYZ - B6;
-
-	bool withinConstraints = L1.Magnitude() - PlatformParams::baseActuatorLength >= 0 && L1.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
-		L2.Magnitude() - PlatformParams::baseActuatorLength >= 0 && L2.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
-		L3.Magnitude() - PlatformParams::baseActuatorLength >= 0 && L3.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
-		L4.Magnitude() - PlatformParams::baseActuatorLength >= 0 && L4.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
-		L5.Magnitude() - PlatformParams::baseActuatorLength >= 0 && L5.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
-		L6.Magnitude() - PlatformParams::baseActuatorLength >= 0 && L6.Magnitude() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength;
-	return ActuatorLengths(L1.Magnitude() - PlatformParams::baseActuatorLength, L2.Magnitude() - PlatformParams::baseActuatorLength, L3.Magnitude() - PlatformParams::baseActuatorLength, L4.Magnitude() - PlatformParams::baseActuatorLength, L5.Magnitude() - PlatformParams::baseActuatorLength, L6.Magnitude() - PlatformParams::baseActuatorLength, withinConstraints);
+	return Platform::calculateIK(XYZ, ypr);
 }
 
 //Calcualtes actuator lengths based off of X, Y, Z, R, P, Y position
 ActuatorLengths Platform::calculateIK(Vector3D XYZ, EulerAngles YPR) {
 	XYZ.Z += PlatformParams::baseHeight;
+
+	YPR.Angles = Rotation(EulerAngles(Vector3D(0, 0, 60), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(YPR.Angles);//yaw rotate by 60 degrees
+	XYZ = Rotation(EulerAngles(Vector3D(30, 0, 0), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(XYZ);//yaw rotate by 60 degrees
 
 	Quaternion q = Rotation(YPR).GetQuaternion();
 
@@ -190,7 +180,7 @@ ActuatorLengths Platform::calculateIK(Vector3D XYZ, EulerAngles YPR) {
 		L4.GetLength() - PlatformParams::baseActuatorLength >= 0 && L4.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
 		L5.GetLength() - PlatformParams::baseActuatorLength >= 0 && L5.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
 		L6.GetLength() - PlatformParams::baseActuatorLength >= 0 && L6.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength;
-	return ActuatorLengths(L1.GetLength() - PlatformParams::baseActuatorLength, L2.GetLength() - PlatformParams::baseActuatorLength, L3.GetLength() - PlatformParams::baseActuatorLength, L4.GetLength() - PlatformParams::baseActuatorLength, L5.GetLength() - PlatformParams::baseActuatorLength, L6.GetLength() - PlatformParams::baseActuatorLength, withinConstraints);
+	return ActuatorLengths(L2.GetLength() - PlatformParams::baseActuatorLength, L3.GetLength() - PlatformParams::baseActuatorLength, L4.GetLength() - PlatformParams::baseActuatorLength, L5.GetLength() - PlatformParams::baseActuatorLength, L6.GetLength() - PlatformParams::baseActuatorLength, L1.GetLength() - PlatformParams::baseActuatorLength, withinConstraints);
 }
 
 //Calculates number of encoder pulses based on actuator parameters and desired distance to move
