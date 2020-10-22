@@ -1,12 +1,12 @@
 #include "Platform.h"
 
 //Initializing Platform Mechanical Parameters
-const double PlatformParams::basePlateRadius = 500.0;//base center point to center of actuator mounting bracket
-const double PlatformParams::baseMountingAngle = 10.0;//arc angle between actuator mounting brackets from center of platform
-const double PlatformParams::platformPlateRadius = 500.0;//platform center point to center of actuator mounting bracket
-const double PlatformParams::platformMountingAngle = 10.0;//arc angle between actuator mounting brackets from center of platform
-const double PlatformParams::baseHeight = 930.0;//platform height from ground when at 0,0,0
-const double PlatformParams::maximumLength = 475.0;//Maximum actuator stroke
+const double PlatformParams::basePlateRadius = 546.1;//base center point to center of actuator mounting bracket
+const double PlatformParams::baseMountingAngle = 10.613;//arc angle between actuator mounting brackets from center of platform
+const double PlatformParams::platformPlateRadius = 546.1;//platform center point to center of actuator mounting bracket
+const double PlatformParams::platformMountingAngle = 10.613;//arc angle between actuator mounting brackets from center of platform
+const double PlatformParams::baseHeight = 850.9;//platform height from ground when at 0,0,0
+const double PlatformParams::maximumLength = 460.0;//Maximum actuator stroke actual is 475. 460 is for safety
 double PlatformParams::baseActuatorLength = 0;//leave this alone, used in IK
 
 //Initializing Motor Parameters
@@ -97,6 +97,10 @@ void Platform::Move() {
 	this->udpTxBuffer[UDPWordOffsets::dac1Offset] = (short)FlipUShortBytes(UDPData::dac1Code);
 	this->udpTxBuffer[UDPWordOffsets::dac2Offset] = (short)FlipUShortBytes(UDPData::dac2Code);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
+	for (int i = 0; i < 50; i++) {
+		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
+	}
+	std::cout << std::endl;
 	runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer);
 }
 
@@ -140,7 +144,11 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	this->udpTxBuffer[UDPWordOffsets::registerVisitNumberOffset] = (short)FlipUShortBytes(0x0001);
 	this->udpTxBuffer[UDPWordOffsets::registerVisitDataBaseOffset] = (short)FlipUShortBytes((unsigned short)value);
 	ShortArryToByteArry(this->udpTxBuffer, this->udpSendBuffer, (this->udpTxBufferSize));
-	runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer);
+	for (int i = 0; i < 50; i++) {
+		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
+	}
+	std::cout << std::endl;
+	runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer);
 }
 
 //Calculates actuator lengths based off of X, Y, Z position

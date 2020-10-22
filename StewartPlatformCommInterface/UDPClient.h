@@ -22,13 +22,13 @@ public:
             //socket_.send_to(boost::asio::buffer(msg, msg.size()), endpoint_);
 
         const std::string stringBuff(reinterpret_cast<char const*>(buff));
-        socket_.send_to(boost::asio::buffer(stringBuff, stringBuff.size()), endpoint_);
+        socket_.send_to(boost::asio::buffer(stringBuff, 50), endpoint_);
         std::cout << "Sending UDP data" << std::endl;
     }
 
     void recieve_from() {
         /*Initialize our endpoint*/
-        boost::array<unsigned char, 8410> temp;
+        boost::array<unsigned char, 7408> temp;
         size_t len = socket_.receive_from(boost::asio::buffer(temp), sender_endpoint);
 
         std::ostringstream ss;
@@ -53,9 +53,9 @@ inline void runUDPClient(std::string portStr, unsigned char* buffer)
     try
     {
         boost::asio::io_service io_service;
-        udp_client client(io_service, "localhost", portStr);
+        udp_client client(io_service, "192.168.15.20", "8410");
         client.send(buffer);
-        //client.recieve_from();
+        client.recieve_from();
     }
     catch (std::exception& e)
     {
