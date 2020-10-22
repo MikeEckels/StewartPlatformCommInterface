@@ -3,12 +3,12 @@
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(117,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(118,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(119,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(120,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(121,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(122,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(123,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(124,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(125,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mike\Documents\Gannon\SeniorYear\Semester1\SeniorDesign\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(126,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   main.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or

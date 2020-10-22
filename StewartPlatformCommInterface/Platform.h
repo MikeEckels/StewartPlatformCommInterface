@@ -9,9 +9,6 @@
 class Platform {
 private:
 
-	//boost::asio::io_service io_service;
-	//UDPClient client = UDPClient(io_service, "localhost", (std::to_string(UDPData::hostTxPort)));
-
 	ActuatorLengths aL;
 	Vector3D B1, B2, B3, B4, B5, B6;
 	Vector3D P1, P2, P3, P4, P5, P6;
@@ -46,5 +43,4 @@ public:
 	ActuatorLengths calculateIK(Vector3D XYZ, EulerAngles YPR);
 
 	void Move();
-
 };
