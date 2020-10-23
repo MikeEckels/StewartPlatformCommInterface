@@ -33,6 +33,7 @@
     <ClInclude Include="Rotation.h" />
     <ClInclude Include="RotationMatrix.h" />
     <ClInclude Include="UDPClient.h" />
+    <ClInclude Include="UDPClient%28V1%29.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="YawPitchRoll.h" />
   </ItemGroup>
@@ -48,6 +49,7 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Rotation.cpp" />
     <ClCompile Include="RotationMatrix.cpp" />
+    <ClCompile Include="UDPClient.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="YawPitchRoll.cpp" />
   </ItemGroup>

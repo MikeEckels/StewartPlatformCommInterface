@@ -1,18 +1,48 @@
-﻿  Platform.cpp
+﻿  main.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(125,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(126,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Platform.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(47,30): error C2280: 'UDPClient::UDPClient(const UDPClient &)': attempting to reference a deleted function
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\UDPClient.h(18): message : compiler has generated 'UDPClient::UDPClient' here
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\UDPClient.h(18,1): message : 'UDPClient::UDPClient(const UDPClient &)': function was implicitly deleted because a data member invokes a deleted or inaccessible function 'boost::asio::basic_datagram_socket<boost::asio::ip::udp,boost::asio::executor>::basic_datagram_socket(const boost::asio::basic_datagram_socket<boost::asio::ip::udp,boost::asio::executor> &)'
+C:\Users\Eckels001\Documents\Visual Studio 2019\boost_1_73_0\boost\asio\basic_datagram_socket.hpp(1205,1): message : 'boost::asio::basic_datagram_socket<boost::asio::ip::udp,boost::asio::executor>::basic_datagram_socket(const boost::asio::basic_datagram_socket<boost::asio::ip::udp,boost::asio::executor> &)': function was implicitly deleted because 'boost::asio::basic_datagram_socket<boost::asio::ip::udp,boost::asio::executor>' has a user-defined move constructor
 C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(127,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(128,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(129,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(130,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  main.cpp
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(131,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(132,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  UDPClient.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+C:\Users\Eckels001\Documents\Visual Studio 2019\boost_1_73_0\boost\asio\impl\executor.hpp(194,1): error C2228: left of '.defer' must have class/struct/union
+C:\Users\Eckels001\Documents\Visual Studio 2019\boost_1_73_0\boost\asio\impl\executor.hpp(194,1): message : type is 'Executor'
+          with
+          [
+              Executor=boost::asio::io_service *
+          ]
+C:\Users\Eckels001\Documents\Visual Studio 2019\boost_1_73_0\boost\asio\impl\executor.hpp(194,1): message : did you intend to use '->' instead?
+C:\Users\Eckels001\Documents\Visual Studio 2019\boost_1_73_0\boost\asio\impl\executor.hpp(193): message : while compiling class template member function 'void boost::asio::executor::impl<Executor,std::allocator<void>>::defer(boost::asio::executor::function &&)'
+          with
+          [
+              Executor=boost::asio::io_service *
+          ]
+C:\Users\Eckels001\Documents\Visual Studio 2019\boost_1_73_0\boost\asio\impl\executor.hpp(333): message : see reference to class template instantiation 'boost::asio::executor::impl<Executor,std::allocator<void>>' being compiled
+          with
+          [
+              Executor=boost::asio::io_service *
+          ]
+C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\UDPClient.cpp(3): message : see reference to function template instantiation 'boost::asio::executor::executor<boost::asio::io_service*>(Executor)' being compiled
+          with
+          [
+              Executor=boost::asio::io_service *
+          ]
   Generating Code...
-  StewartPlatformCommInterface.vcxproj -> C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\Debug\StewartPlatformCommInterface.exe

@@ -1,4 +1,5 @@
 #include "Platform.h"
+boost::asio::io_service ioService;
 
 //Initializing Platform Mechanical Parameters
 const double PlatformParams::basePlateRadius = 546.1;//base center point to center of actuator mounting bracket
@@ -43,7 +44,7 @@ unsigned short UDPData::dac1Code = 0x0000;
 unsigned short UDPData::dac2Code = 0x0000;
 unsigned short UDPData::extDigitalOutCode = 0x0000;
 
-void Platform::Initialize() {
+Platform::Platform() : client(UDPClient(&ioService, "192.168.15.201", UDPData::hostRxPort)) {
 	//Calculating base and platform actuator points. 
 	B1 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
 	B2 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
@@ -101,7 +102,8 @@ void Platform::Move() {
 		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
 	}
 	std::cout << std::endl;*/
-	runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
+	//runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
+	client.send(this->udpSendBuffer, udpSendBufferSize);
 }
 
 //Sets Platform function register
@@ -148,13 +150,13 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 		std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)this->udpSendBuffer[i] << " ";
 	}
 	std::cout << std::endl;*/
-	runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer, udpSendBufferSize);
+	//runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer, udpSendBufferSize);
+	client.send(this->udpSendBuffer, udpSendBufferSize);
 }
 
 //Calculates actuator lengths based off of X, Y, Z position
 ActuatorLengths Platform::calculateIK(Vector3D XYZ) {
 	EulerAngles ypr = EulerAngles(Vector3D(0, 0, 0), EulerConstants::EulerOrderXYZR);
-
 	return Platform::calculateIK(XYZ, ypr);
 }
 
@@ -162,8 +164,9 @@ ActuatorLengths Platform::calculateIK(Vector3D XYZ) {
 ActuatorLengths Platform::calculateIK(Vector3D XYZ, EulerAngles YPR) {
 	XYZ.Z += PlatformParams::baseHeight;
 
-	YPR.Angles = Rotation(EulerAngles(Vector3D(0, 0, 60), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(YPR.Angles);//yaw rotate by 60 degrees
-	XYZ = Rotation(EulerAngles(Vector3D(30, 0, 0), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(XYZ);//yaw rotate by 60 degrees
+	//These two lines rotate the input coordinate system to the proper orientation. Both in the translational and rotational axis.
+	YPR.Angles = Rotation(EulerAngles(Vector3D(0, 0, 60), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(YPR.Angles);
+	XYZ = Rotation(EulerAngles(Vector3D(30, 0, 0), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(XYZ);
 
 	Quaternion q = Rotation(YPR).GetQuaternion();
 
@@ -180,6 +183,7 @@ ActuatorLengths Platform::calculateIK(Vector3D XYZ, EulerAngles YPR) {
 		L4.GetLength() - PlatformParams::baseActuatorLength >= 0 && L4.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
 		L5.GetLength() - PlatformParams::baseActuatorLength >= 0 && L5.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength&&
 		L6.GetLength() - PlatformParams::baseActuatorLength >= 0 && L6.GetLength() - PlatformParams::baseActuatorLength < PlatformParams::maximumLength;
+	//Ordering of L1 - L6 is based off of physical platform actuators
 	return ActuatorLengths(L2.GetLength() - PlatformParams::baseActuatorLength, L3.GetLength() - PlatformParams::baseActuatorLength, L4.GetLength() - PlatformParams::baseActuatorLength, L5.GetLength() - PlatformParams::baseActuatorLength, L6.GetLength() - PlatformParams::baseActuatorLength, L1.GetLength() - PlatformParams::baseActuatorLength, withinConstraints);
 }
 

@@ -14,6 +14,8 @@ private:
 	Vector3D P1, P2, P3, P4, P5, P6;
 	Vector3D L1, L2, L3, L4, L5, L6;
 
+	UDPClient client;
+
 	const static int udpTxBufferSize = 25;
 	const static int udpSendBufferSize = 50;
 
@@ -31,7 +33,7 @@ private:
 	uint32_t GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev);
 	
 public:
-	void Initialize();
+	Platform();
 	void Reset();
 
 	void SetFunctionCode(int32_t code);

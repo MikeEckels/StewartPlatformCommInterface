@@ -8,11 +8,6 @@ bool moveIsSafe = 0;
 void checkMove(bool state) {
 	if (state) {
 		std::cout << "[+] Move Command valid, Moving" << std::endl;
-		/*Sleep(50);
-		platform.Move();
-		Sleep(50);
-		platform.Move();
-		Sleep(50);*/
 		platform.Move();
 	}
 	else {
@@ -28,8 +23,7 @@ void checkMove(bool state) {
 }
 
 int main() {
-	platform.Initialize();
-	//platform.Reset();
+	platform.Reset();
 
 	platform.SetFunctionCode(FunctionCodes::absoluteTime);
 	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
@@ -38,6 +32,8 @@ int main() {
 	moveIsSafe = platform.SetPositon(0, 0, 0, 0, 0, 0);//X, Y, Z, Yaw, Pitch, Roll
 	checkMove(moveIsSafe);
 	Sleep(5000);
+	//!!Need to add an instruction incrementer!!
+
 //
 //	moveIsSafe = platform.SetPositon(0, 0, 200, 50, 0, 0);//X, Y, Z, Yaw, ?, ?
 //	checkMove(moveIsSafe);
