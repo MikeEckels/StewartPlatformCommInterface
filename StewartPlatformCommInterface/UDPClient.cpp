@@ -1,6 +1,6 @@
 #include "UDPClient.h"
 
-UDPClient::UDPClient(boost::asio::io_service* service, std::string ipAddress, short port) : socket{ service } {
+UDPClient::UDPClient(boost::asio::io_service& service, std::string ipAddress, short port) : socket{ service } {
 	boost::asio::ip::udp::endpoint remoteEndpoint;
 	boost::asio::socket_base::broadcast option(true);
 
@@ -14,7 +14,7 @@ UDPClient::~UDPClient() {
 	socket.close();
 }
 
-void UDPClient::send(unsigned char* buff, int size) {
+void UDPClient::Send(unsigned char* buff, int size) {
 	const std::string stringBuffer(reinterpret_cast<const char*>(buff), size);
 	socket.send_to(boost::asio::buffer(stringBuffer, size), this->remoteEndpoint, 0, this->ignoredError);
 }

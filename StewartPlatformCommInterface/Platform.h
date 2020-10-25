@@ -28,6 +28,7 @@ private:
 	unsigned short U32HighBytesToWord(uint32_t data);
 	unsigned short U32LowBytesToWord(uint32_t data);
 
+	void AddMovement();
 	void ShortArryToByteArry(short* shortArry, unsigned char* byteArry, int shortArrySize);
 
 	uint32_t GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev);

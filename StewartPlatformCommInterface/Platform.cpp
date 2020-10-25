@@ -1,4 +1,5 @@
 #include "Platform.h"
+
 boost::asio::io_service ioService;
 
 //Initializing Platform Mechanical Parameters
@@ -30,7 +31,7 @@ unsigned short UDPData::channelCode = 0x0001;
 unsigned short UDPData::recieverCode = 0xFFFF;
 unsigned short UDPData::transmitterCode = 0xFFFF;
 
-int32_t UDPData::line = 0x00000000;
+int32_t UDPData::instruction = 0x00000000;
 int32_t UDPData::time = 0x00000000;
 int32_t UDPData::xPos = 0x00000000;
 int32_t UDPData::yPos = 0x00000000;
@@ -44,7 +45,7 @@ unsigned short UDPData::dac1Code = 0x0000;
 unsigned short UDPData::dac2Code = 0x0000;
 unsigned short UDPData::extDigitalOutCode = 0x0000;
 
-Platform::Platform() : client(UDPClient(&ioService, "192.168.15.201", UDPData::hostRxPort)) {
+Platform::Platform() : client(UDPClient(ioService, "192.168.15.201", UDPData::hostRxPort)) {
 	//Calculating base and platform actuator points. 
 	B1 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
 	B2 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
@@ -72,14 +73,15 @@ void Platform::Reset() {
 
 //Generate data buffer and send over UDP
 void Platform::Move() {
+	AddMovement();
 	this->udpTxBuffer[UDPWordOffsets::confirmCodeOffset] = (short)FlipUShortBytes(UDPData::confirmCode);
 	this->udpTxBuffer[UDPWordOffsets::passOffset] = (short)FlipUShortBytes(UDPData::passCode);
 	this->udpTxBuffer[UDPWordOffsets::functionCodeOffset] = (short)FlipUShortBytes(UDPData::functionCode);
 	this->udpTxBuffer[UDPWordOffsets::objectChannelOffset] = (short)FlipUShortBytes(UDPData::channelCode);
 	this->udpTxBuffer[UDPWordOffsets::transmitterCodeOffset] = (short)FlipUShortBytes(UDPData::transmitterCode);
 	this->udpTxBuffer[UDPWordOffsets::recieverCodeOffset] = (short)FlipUShortBytes(UDPData::recieverCode);
-	this->udpTxBuffer[UDPWordOffsets::lineHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::line);
-	this->udpTxBuffer[UDPWordOffsets::lineLowOffset] = (short)U32LowBytesToWord((uint32_t)UDPData::line);
+	this->udpTxBuffer[UDPWordOffsets::instructionHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::instruction);
+	this->udpTxBuffer[UDPWordOffsets::instructionLowOffset] = (short)U32LowBytesToWord((uint32_t)UDPData::instruction);
 	this->udpTxBuffer[UDPWordOffsets::timeHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::time);
 	this->udpTxBuffer[UDPWordOffsets::timeLowOffset] = (short)U32LowBytesToWord((uint32_t)UDPData::time);
 	this->udpTxBuffer[UDPWordOffsets::xPosHighOffset] = (short)U32HighBytesToWord((uint32_t)UDPData::xPos);
@@ -103,7 +105,7 @@ void Platform::Move() {
 	}
 	std::cout << std::endl;*/
 	//runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
-	client.send(this->udpSendBuffer, udpSendBufferSize);
+	client.Send(this->udpSendBuffer, udpSendBufferSize);
 }
 
 //Sets Platform function register
@@ -151,7 +153,7 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	}
 	std::cout << std::endl;*/
 	//runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer, udpSendBufferSize);
-	client.send(this->udpSendBuffer, udpSendBufferSize);
+	client.Send(this->udpSendBuffer, udpSendBufferSize);
 }
 
 //Calculates actuator lengths based off of X, Y, Z position
@@ -245,4 +247,8 @@ void Platform::ShortArryToByteArry(short* shortArry, unsigned char* byteArry, in
 		this->udpSendBuffer[i * 2] = msb;
 		this->udpSendBuffer[(i * 2) + 1] = lsb;
 	}
+}
+
+void Platform::AddMovement() {
+	UDPData::instruction += 1;
 }

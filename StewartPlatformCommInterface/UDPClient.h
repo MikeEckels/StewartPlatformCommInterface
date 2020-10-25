@@ -6,10 +6,10 @@
 
 class UDPClient {
 public:
-	UDPClient(boost::asio::io_service* service, std::string ipAddress, short port);
+	UDPClient(boost::asio::io_service& service, std::string ipAddress, short port);
 	~UDPClient();
 
-	void send(unsigned char* buff, int size);
+	void Send(unsigned char* buff, int size);
 
 private:
 	boost::asio::ip::udp::socket socket;

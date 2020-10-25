@@ -55,8 +55,8 @@ struct UDPWordOffsets {
 	const static int32_t registerVisitDataBaseOffset = 8;
 	const static int32_t registerVisitErrorCodeOffset = 9;
 
-	const static int32_t lineHighOffset = 6;
-	const static int32_t lineLowOffset = 7;
+	const static int32_t instructionHighOffset = 6;
+	const static int32_t instructionLowOffset = 7;
 	const static int32_t timeHighOffset = 8;
 	const static int32_t timeLowOffset = 9;
 
@@ -94,7 +94,7 @@ struct UDPData {
 	static unsigned short recieverCode;
 	static unsigned short transmitterCode;
 
-	static int32_t line;
+	static int32_t instruction;
 	static int32_t time;
 	static int32_t xPos;
 	static int32_t yPos;
