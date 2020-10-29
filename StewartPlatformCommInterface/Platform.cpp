@@ -69,6 +69,12 @@ void Platform::Reset() {
 	SetRegister(UDPData::channelCode, (unsigned short)CxRegister::resetRegister, 0);
 }
 
+void Platform::Stop() {
+	SetFunctionCode(FunctionCodes::dnRegisterWrite);
+	SetChannelCode(UDPRegisterChannels::writeFnRegisterNoSaveChannel);
+	SetRegister(UDPData::channelCode, (unsigned short)CxRegister::eStopRegister, 1);
+}
+
 //Generate data buffer and send over UDP
 void Platform::Move() {
 	AddMovement();

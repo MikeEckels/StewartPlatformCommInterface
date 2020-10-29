@@ -36,6 +36,7 @@ private:
 public:
 	Platform();
 	void Reset();
+	void Stop();
 
 	void SetFunctionCode(int32_t code);
 	void SetChannelCode(int32_t code);

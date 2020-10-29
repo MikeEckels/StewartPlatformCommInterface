@@ -15,5 +15,5 @@ UDPClient::~UDPClient() {
 
 void UDPClient::Send(unsigned char* buff, int size) {
 	const std::string stringBuffer(reinterpret_cast<const char*>(buff), size);
-	socket.send_to(boost::asio::buffer(stringBuffer, size), this->remoteEndpoint, 0, this->ignoredError);
+	socket.send_to(boost::asio::buffer(stringBuffer, size), this->remoteEndpoint);
 }

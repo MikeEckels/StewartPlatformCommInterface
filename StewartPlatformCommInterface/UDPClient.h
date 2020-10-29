@@ -15,5 +15,4 @@ private:
 	boost::asio::io_service ioService;
 	boost::asio::ip::udp::socket socket;
 	boost::asio::ip::udp::endpoint remoteEndpoint;
-	boost::system::error_code ignoredError;
 };

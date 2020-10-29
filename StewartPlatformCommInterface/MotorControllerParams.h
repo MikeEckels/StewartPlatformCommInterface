@@ -19,7 +19,8 @@ struct MotorParams {
 };
 
 struct CxRegister {
-	const static int32_t resetRegister = 0x0;
+	const static int32_t resetRegister = 0x0000;
+	const static int32_t eStopRegister = 0x0090;
 };
 
 struct FunctionCodes {
