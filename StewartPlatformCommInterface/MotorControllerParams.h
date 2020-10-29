@@ -81,6 +81,7 @@ struct UDPWordOffsets {
 };
 
 struct UDPData {
+	const static std::string ipAddress;
 	static short hostTxPort;
 	static short hostRxPort;
 	static short platformTxPort;
