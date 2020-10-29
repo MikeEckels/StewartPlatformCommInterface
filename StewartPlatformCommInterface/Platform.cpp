@@ -1,7 +1,5 @@
 #include "Platform.h"
 
-//boost::asio::io_service ioService;
-
 //Initializing Platform Mechanical Parameters
 const double PlatformParams::basePlateRadius = 546.1;//base center point to center of actuator mounting bracket
 const double PlatformParams::baseMountingAngle = 10.613;//arc angle between actuator mounting brackets from center of platform
@@ -18,7 +16,6 @@ const float MotorParams::cylinderGearRatio = 1.0f;
 const uint32_t MotorParams::cylinderPulsePerRev = 7500;
 
 //Initializing Platform UDP ByteStream
-const std::string ipAddress = "192.168.15.201";
 short UDPData::hostTxPort = 8410;
 short UDPData::hostRxPort = 8410;
 short UDPData::platformTxPort = 7408;
@@ -46,7 +43,7 @@ unsigned short UDPData::dac1Code = 0x0000;
 unsigned short UDPData::dac2Code = 0x0000;
 unsigned short UDPData::extDigitalOutCode = 0x0000;
 
-Platform::Platform() : client(ioService, UDPData::ipAddress, std::to_string(UDPData::hostRxPort)) {
+Platform::Platform() : client("192.168.15.201", UDPData::hostRxPort) {
 	//Calculating base and platform actuator points. 
 	B1 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
 	B2 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
