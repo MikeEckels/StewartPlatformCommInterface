@@ -9,7 +9,7 @@ C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommIn
 C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(130,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(131,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Eckels001\Desktop\StewartPlatform\PlatformControl\StewartPlatformCommInterface\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(132,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  UDPClient.cpp
+  main.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.

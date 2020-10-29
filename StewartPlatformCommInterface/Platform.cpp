@@ -43,7 +43,7 @@ unsigned short UDPData::dac1Code = 0x0000;
 unsigned short UDPData::dac2Code = 0x0000;
 unsigned short UDPData::extDigitalOutCode = 0x0000;
 
-Platform::Platform() : client("192.168.15.201", UDPData::hostRxPort) {
+Platform::Platform() : client("192.168.15.201", "7408") {
 	//Calculating base and platform actuator points. 
 	B1 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
 	B2 = Vector3D(PlatformParams::basePlateRadius * cos((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), PlatformParams::basePlateRadius * sin((PlatformParams::baseMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);

@@ -6,8 +6,7 @@
 
 class UDPClient {
 public:
-	//UDPClient(boost::asio::io_service& service, const std::string& ipAddress, short port);
-	UDPClient(const std::string& ipAddress, short port);
+	UDPClient(const std::string& ipAddress, const std::string& port);
 	~UDPClient();
 
 	void Send(unsigned char* buff, int size);
