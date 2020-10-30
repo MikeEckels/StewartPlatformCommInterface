@@ -2,6 +2,7 @@
 
 UDPClient::UDPClient(const std::string& ipAddress, const std::string& port) : socket{ ioService } {
     socket.open(boost::asio::ip::udp::v4());
+    socket.bind(boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), 8410));
 
     boost::asio::socket_base::broadcast option(true);
     socket.set_option(option);
