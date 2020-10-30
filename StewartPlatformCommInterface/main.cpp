@@ -9,21 +9,13 @@ void checkMove(bool state);//Prototype
 
 int main() {
 	/*platform.Reset();
-	Sleep(10);
-	platform.Reset();
-	Sleep(10);*/
+	Sleep(15000);*/
 	
 	platform.SetFunctionCode(FunctionCodes::absoluteTime);
 	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
-	platform.SetMoveTimeMs(100);
+	platform.SetMoveTimeMs(1);
 
-	moveIsSafe = platform.SetPositon(0, 0, 200, 0, 0, 0);//X, Y, Z, Yaw, Pitch, Roll
-	checkMove(moveIsSafe);
-	Sleep(2000);
-	moveIsSafe = platform.SetPositon(0, 0, 200, 30, 0, 0);//X, Y, Z, Yaw, Pitch, Roll
-	checkMove(moveIsSafe);
-	Sleep(2000);
-	moveIsSafe = platform.SetPositon(0, 0, 0, 0, 0, 0);//X, Y, Z, Yaw, Pitch, Roll
+	moveIsSafe = platform.SetPositon(0, 0, 0, 0, 0, 0);
 	checkMove(moveIsSafe);
 }
 
@@ -31,9 +23,6 @@ void checkMove(bool state) {
 	if (state) {
 		std::cout << "[+] Move Command valid, Moving" << std::endl;
 		platform.Move();
-		Sleep(5);
-		platform.Move();
-		Sleep(5);
 	}
 	else {
 		std::cout << "[!] Move Command Invalid" << std::endl;
