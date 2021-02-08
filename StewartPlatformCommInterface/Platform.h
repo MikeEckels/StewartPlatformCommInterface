@@ -41,10 +41,10 @@ public:
 	void SetFunctionCode(int32_t code);
 	void SetChannelCode(int32_t code);
 	void SetMoveTimeMs(int32_t milliseconds);
-	bool SetPositon(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
+	bool SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
 	void SetRegister(unsigned short channelCode, unsigned short registerAddress, short value);
-	ActuatorLengths calculateIK(Vector3D XYZ);
-	ActuatorLengths calculateIK(Vector3D XYZ, EulerAngles YPR);
+	ActuatorLengths CalculateIK(Vector3D XYZ);
+	ActuatorLengths CalculateIK(Vector3D XYZ, EulerAngles YPR);
 
 	void Move();
 };

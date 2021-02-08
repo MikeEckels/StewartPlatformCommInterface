@@ -59,7 +59,7 @@ Platform::Platform() : client("192.168.15.201", "7408") {
 	P5 = Vector3D(-PlatformParams::platformPlateRadius * cos((PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::platformPlateRadius * sin((PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
 	P6 = Vector3D(PlatformParams::platformPlateRadius * cos((60.0 + PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), -PlatformParams::platformPlateRadius * sin((60.0 + PlatformParams::platformMountingAngle / 2.0) * Mathematics::PI / 180.0), 0);
 
-	PlatformParams::baseActuatorLength = Platform::calculateIK(Vector3D(0, 0, 0)).U;
+	PlatformParams::baseActuatorLength = Platform::CalculateIK(Vector3D(0, 0, 0)).U;
 }
 
 //Write reset registers and resetPlatform
@@ -128,8 +128,8 @@ void Platform::SetMoveTimeMs(int32_t ms) {
 }
 
 //Sets platform position in X,Y,Z,R,P,Y, calculates IK, and calculates encoder pulses per actuator to move desired distance
-bool Platform::SetPositon(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
-	ActuatorLengths aL = calculateIK(Vector3D((double)x, (double)y, (double)z), EulerAngles(Vector3D((double)u, (double)v, (double)w), EulerConstants::EulerOrderXYZR));//Change to relative rotation
+bool Platform::SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
+	ActuatorLengths aL = CalculateIK(Vector3D((double)x, (double)y, (double)z), EulerAngles(Vector3D((double)u, (double)v, (double)w), EulerConstants::EulerOrderXYZR));//Change to relative rotation
 	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.X, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
 	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
 	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
@@ -161,13 +161,13 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 }
 
 //Calculates actuator lengths based off of X, Y, Z position
-ActuatorLengths Platform::calculateIK(Vector3D XYZ) {
+ActuatorLengths Platform::CalculateIK(Vector3D XYZ) {
 	EulerAngles ypr = EulerAngles(Vector3D(0, 0, 0), EulerConstants::EulerOrderXYZR);
-	return Platform::calculateIK(XYZ, ypr);
+	return Platform::CalculateIK(XYZ, ypr);
 }
 
 //Calcualtes actuator lengths based off of X, Y, Z, R, P, Y position
-ActuatorLengths Platform::calculateIK(Vector3D XYZ, EulerAngles YPR) {
+ActuatorLengths Platform::CalculateIK(Vector3D XYZ, EulerAngles YPR) {
 	XYZ.Z += PlatformParams::baseHeight;
 
 	//These two lines rotate the input coordinate system to the proper orientation. Both in the translational and rotational axis.
