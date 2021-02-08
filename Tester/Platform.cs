@@ -33,6 +33,24 @@ namespace Tester {
         [DllImport("StewartPlatformCommInterface.dll")]
         private static extern void SetRegisterW(IntPtr platformPointer, ushort channelCode, ushort registerAddress, ushort value);
 
+        [DllImport("StewartPlatformCommInterface.dll")]
+        private static extern int GetXstepsW(IntPtr platformPointer);
+
+        [DllImport("StewartPlatformCommInterface.dll")]
+        private static extern int GetYstepsW(IntPtr platformPointer);
+
+        [DllImport("StewartPlatformCommInterface.dll")]
+        private static extern int GetZstepsW(IntPtr platformPointer);
+
+        [DllImport("StewartPlatformCommInterface.dll")]
+        private static extern int GetUstepsW(IntPtr platformPointer);
+
+        [DllImport("StewartPlatformCommInterface.dll")]
+        private static extern int GetVstepsW(IntPtr platformPointer);
+
+        [DllImport("StewartPlatformCommInterface.dll")]
+        private static extern int GetWstepsW(IntPtr platformPointer);
+
         //[DllImport("StewartPlatformCommInterface.dll")]
         //private static extern ActuatorLengths calculateIKW(IntPtr platformPointer, Vector3D XYZ);
 
@@ -78,6 +96,30 @@ namespace Tester {
 
         public void SetRegister(ushort channelCode, ushort registerAddress, ushort value) {
             SetRegisterW(_platformPointer, channelCode, registerAddress, value);
+        }
+
+        public int GetXsteps() {
+            return GetXstepsW(_platformPointer);
+        }
+
+        public int GetYsteps() {
+            return GetYstepsW(_platformPointer);
+        }
+
+        public int GetZsteps() {
+            return GetZstepsW(_platformPointer);
+        }
+
+        public int GetUsteps() {
+            return GetUstepsW(_platformPointer);
+        }
+
+        public int GetVsteps() {
+            return GetVstepsW(_platformPointer);
+        }
+
+        public int GetWsteps() {
+            return GetWstepsW(_platformPointer);
         }
 
         //public ActuatorLengths CalculateIK(Vector3D XYZ) {

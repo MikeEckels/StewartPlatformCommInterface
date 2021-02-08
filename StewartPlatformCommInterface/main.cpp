@@ -15,7 +15,7 @@
 //	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
 //	platform.SetMoveTimeMs(1);
 //
-//	moveIsSafe = platform.SetPosition(0, 0, 0, 0, 0, 0);
+//	moveIsSafe = platform.SetPosition(0, 0, 1, 0, 0, 0);
 //	checkMove(moveIsSafe);
 //}
 //
@@ -28,10 +28,10 @@
 //		std::cout << "[!] Move Command Invalid" << std::endl;
 //	}
 //
-//	std::cout << "X Steps: " << std::to_string(UDPData::xPos) << std::endl;
-//	std::cout << "Y Steps: " << std::to_string(UDPData::yPos) << std::endl;
-//	std::cout << "Z Steps: " << std::to_string(UDPData::zPos) << std::endl;
-//	std::cout << "U Steps: " << std::to_string(UDPData::uPos) << std::endl;
-//	std::cout << "V Steps: " << std::to_string(UDPData::vPos) << std::endl;
-//	std::cout << "W Steps: " << std::to_string(UDPData::wPos) << std::endl;
+//	std::cout << "X Steps: " << std::to_string(platform.GetXsteps()) << std::endl;
+//	std::cout << "Y Steps: " << std::to_string(platform.GetYsteps()) << std::endl;
+//	std::cout << "Z Steps: " << std::to_string(platform.GetZsteps()) << std::endl;
+//	std::cout << "U Steps: " << std::to_string(platform.GetUsteps()) << std::endl;
+//	std::cout << "V Steps: " << std::to_string(platform.GetVsteps()) << std::endl;
+//	std::cout << "W Steps: " << std::to_string(platform.GetWsteps()) << std::endl;
 //}

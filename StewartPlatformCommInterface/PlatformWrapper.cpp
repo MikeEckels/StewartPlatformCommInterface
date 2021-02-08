@@ -36,6 +36,30 @@ extern "C" __declspec(dllexport) void SetRegisterW(Platform * platform, unsigned
 	platform->SetRegister(channelCode, registerAddress, value);
 }
 
+extern "C" __declspec(dllexport) int GetXstepsW(Platform * platform) {
+	return platform->GetXsteps();
+}
+
+extern "C" __declspec(dllexport) int GetYstepsW(Platform * platform) {
+	return platform->GetYsteps();
+}
+
+extern "C" __declspec(dllexport) int GetZstepsW(Platform * platform) {
+	return platform->GetZsteps();
+}
+
+extern "C" __declspec(dllexport) int GetUstepsW(Platform * platform) {
+	return platform->GetUsteps();
+}
+
+extern "C" __declspec(dllexport) int GetVstepsW(Platform * platform) {
+	return platform->GetVsteps();
+}
+
+extern "C" __declspec(dllexport) int GetWstepsW(Platform * platform) {
+	return platform->GetWsteps();
+}
+
 //extern "C" __declspec(dllexport) ActuatorLengths CalculateIKW(Platform * platform, Vector3D XYZ) {
 //	return platform->CalculateIK(XYZ);
 //}

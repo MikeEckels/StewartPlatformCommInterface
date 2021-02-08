@@ -160,6 +160,30 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	client.Send(this->udpSendBuffer, udpSendBufferSize);
 }
 
+int32_t Platform::GetXsteps() {
+	return UDPData::xPos;
+}
+
+int32_t Platform::GetYsteps() {
+	return UDPData::yPos;
+}
+
+int32_t Platform::GetZsteps() {
+	return UDPData::zPos;
+}
+
+int32_t Platform::GetUsteps() {
+	return UDPData::uPos;
+}
+
+int32_t Platform::GetVsteps() {
+	return UDPData::vPos;
+}
+
+int32_t Platform::GetWsteps() {
+	return UDPData::wPos;
+}
+
 //Calculates actuator lengths based off of X, Y, Z position
 ActuatorLengths Platform::CalculateIK(Vector3D XYZ) {
 	EulerAngles ypr = EulerAngles(Vector3D(0, 0, 0), EulerConstants::EulerOrderXYZR);

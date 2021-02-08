@@ -32,9 +32,13 @@ private:
 	void ShortArryToByteArry(short* shortArry, unsigned char* byteArry, int shortArrySize);
 
 	uint32_t GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev);
+
+	ActuatorLengths CalculateIK(Vector3D XYZ);
+	ActuatorLengths CalculateIK(Vector3D XYZ, EulerAngles YPR);
 	
 public:
 	Platform();
+
 	void Reset();
 	void Stop();
 
@@ -43,8 +47,13 @@ public:
 	void SetMoveTimeMs(int32_t milliseconds);
 	bool SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
 	void SetRegister(unsigned short channelCode, unsigned short registerAddress, short value);
-	ActuatorLengths CalculateIK(Vector3D XYZ);
-	ActuatorLengths CalculateIK(Vector3D XYZ, EulerAngles YPR);
+
+	int32_t GetXsteps();
+	int32_t GetYsteps();
+	int32_t GetZsteps();
+	int32_t GetUsteps();
+	int32_t GetVsteps();
+	int32_t GetWsteps();
 
 	void Move();
 };
