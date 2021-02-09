@@ -28,34 +28,14 @@ namespace Tester {
         private static extern void SetMoveTimeMsW(IntPtr platformPointer, int milliseconds);
 
         [DllImport("StewartPlatformCommInterface.dll")]
+        [return: MarshalAs(UnmanagedType.I1)]
         private static extern bool SetPositionW(IntPtr platformPointer, int x, int y, int z, int u, int v, int w);
 
         [DllImport("StewartPlatformCommInterface.dll")]
         private static extern void SetRegisterW(IntPtr platformPointer, ushort channelCode, ushort registerAddress, ushort value);
 
         [DllImport("StewartPlatformCommInterface.dll")]
-        private static extern int GetXstepsW(IntPtr platformPointer);
-
-        [DllImport("StewartPlatformCommInterface.dll")]
-        private static extern int GetYstepsW(IntPtr platformPointer);
-
-        [DllImport("StewartPlatformCommInterface.dll")]
-        private static extern int GetZstepsW(IntPtr platformPointer);
-
-        [DllImport("StewartPlatformCommInterface.dll")]
-        private static extern int GetUstepsW(IntPtr platformPointer);
-
-        [DllImport("StewartPlatformCommInterface.dll")]
-        private static extern int GetVstepsW(IntPtr platformPointer);
-
-        [DllImport("StewartPlatformCommInterface.dll")]
-        private static extern int GetWstepsW(IntPtr platformPointer);
-
-        //[DllImport("StewartPlatformCommInterface.dll")]
-        //private static extern ActuatorLengths calculateIKW(IntPtr platformPointer, Vector3D XYZ);
-
-        //[DllImport("StewartPlatformCommInterface.dll")]
-        //private static extern ActuatorLengths calculateIKW(IntPtr platformPointer, Vector3D XYZ, EulerAngle YPR);
+        private static extern ActuatorLengths GetPositionStepsW(IntPtr platformPointer);
 
         [DllImport("StewartPlatformCommInterface.dll")]
         private static extern void MoveW(IntPtr platformPointer);
@@ -98,37 +78,9 @@ namespace Tester {
             SetRegisterW(_platformPointer, channelCode, registerAddress, value);
         }
 
-        public int GetXsteps() {
-            return GetXstepsW(_platformPointer);
+        public ActuatorLengths GetPositionSteps() {
+            return GetPositionStepsW(_platformPointer);
         }
-
-        public int GetYsteps() {
-            return GetYstepsW(_platformPointer);
-        }
-
-        public int GetZsteps() {
-            return GetZstepsW(_platformPointer);
-        }
-
-        public int GetUsteps() {
-            return GetUstepsW(_platformPointer);
-        }
-
-        public int GetVsteps() {
-            return GetVstepsW(_platformPointer);
-        }
-
-        public int GetWsteps() {
-            return GetWstepsW(_platformPointer);
-        }
-
-        //public ActuatorLengths CalculateIK(Vector3D XYZ) {
-        //    calculateIKW(_platformPointer, XYZ);
-        //}
-
-        //public ActuatorLengths CalculateIK(Vector3D XYZ, EulerAngles YPR) {
-        //    calculateIKW(_platformPointer, XYZ, YPR);
-        //}
 
         public void Move() {
             MoveW(_platformPointer);

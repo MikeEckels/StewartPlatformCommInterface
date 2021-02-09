@@ -41,6 +41,7 @@ public:
 
 	void Reset();
 	void Stop();
+	void Move();
 
 	void SetFunctionCode(int32_t code);
 	void SetChannelCode(int32_t code);
@@ -48,12 +49,5 @@ public:
 	bool SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
 	void SetRegister(unsigned short channelCode, unsigned short registerAddress, short value);
 
-	int32_t GetXsteps();
-	int32_t GetYsteps();
-	int32_t GetZsteps();
-	int32_t GetUsteps();
-	int32_t GetVsteps();
-	int32_t GetWsteps();
-
-	void Move();
+	ActuatorLengths GetPositionSteps();
 };

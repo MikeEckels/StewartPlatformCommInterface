@@ -16,12 +16,12 @@ namespace Tester {
                 Console.WriteLine("[!] Wrapper Move Command Invalid");
             }
 
-            Console.WriteLine("X Steps: " + platform.GetXsteps());
-            Console.WriteLine("Y Steps: " + platform.GetYsteps());
-            Console.WriteLine("Z Steps: " + platform.GetZsteps());
-            Console.WriteLine("U Steps: " + platform.GetUsteps());
-            Console.WriteLine("V Steps: " + platform.GetVsteps());
-            Console.WriteLine("W Steps: " + platform.GetWsteps());
+            Console.WriteLine("X Steps: " + platform.GetPositionSteps().X);
+            Console.WriteLine("Y Steps: " + platform.GetPositionSteps().Y);
+            Console.WriteLine("Z Steps: " + platform.GetPositionSteps().Z);
+            Console.WriteLine("U Steps: " + platform.GetPositionSteps().U);
+            Console.WriteLine("V Steps: " + platform.GetPositionSteps().V);
+            Console.WriteLine("W Steps: " + platform.GetPositionSteps().W);
         }
         static void Main(string[] args) {
             platform.SetFunctionCode(0x1301);

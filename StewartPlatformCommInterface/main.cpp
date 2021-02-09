@@ -28,10 +28,10 @@
 //		std::cout << "[!] Move Command Invalid" << std::endl;
 //	}
 //
-//	std::cout << "X Steps: " << std::to_string(platform.GetXsteps()) << std::endl;
-//	std::cout << "Y Steps: " << std::to_string(platform.GetYsteps()) << std::endl;
-//	std::cout << "Z Steps: " << std::to_string(platform.GetZsteps()) << std::endl;
-//	std::cout << "U Steps: " << std::to_string(platform.GetUsteps()) << std::endl;
-//	std::cout << "V Steps: " << std::to_string(platform.GetVsteps()) << std::endl;
-//	std::cout << "W Steps: " << std::to_string(platform.GetWsteps()) << std::endl;
+//	std::cout << "X Steps: " << std::to_string(platform.GetPositionSteps().X) << std::endl;
+//	std::cout << "Y Steps: " << std::to_string(platform.GetPositionSteps().Y) << std::endl;
+//	std::cout << "Z Steps: " << std::to_string(platform.GetPositionSteps().Z) << std::endl;
+//	std::cout << "U Steps: " << std::to_string(platform.GetPositionSteps().U) << std::endl;
+//	std::cout << "V Steps: " << std::to_string(platform.GetPositionSteps().V) << std::endl;
+//	std::cout << "W Steps: " << std::to_string(platform.GetPositionSteps().W) << std::endl;
 //}
