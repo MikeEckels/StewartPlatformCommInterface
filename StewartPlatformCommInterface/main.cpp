@@ -15,7 +15,7 @@
 //	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
 //	platform.SetMoveTimeMs(1);
 //
-//	moveIsSafe = platform.SetPosition(0, 0, 1, 0, 0, 0);
+//	moveIsSafe = platform.SetPosition(0, 0, 0, 0, 0, 0);
 //	checkMove(moveIsSafe);
 //}
 //

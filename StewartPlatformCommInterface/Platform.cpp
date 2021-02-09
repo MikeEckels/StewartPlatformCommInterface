@@ -109,6 +109,7 @@ void Platform::Move() {
 	}
 	std::cout << std::endl;*/
 	//runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
+	client.PrintSendBuffer(this->udpSendBuffer, udpSendBufferSize);
 	client.Send(this->udpSendBuffer, udpSendBufferSize);
 }
 
@@ -157,6 +158,7 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	}
 	std::cout << std::endl;*/
 	//runUDPClient(std::to_string(UDPData::platformRxPort), this->udpSendBuffer, udpSendBufferSize);
+	client.PrintSendBuffer(this->udpSendBuffer, udpSendBufferSize);
 	client.Send(this->udpSendBuffer, udpSendBufferSize);
 }
 
