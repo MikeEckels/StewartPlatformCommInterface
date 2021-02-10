@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
-namespace Tester {
+namespace PlatformLibrary {
 
     [StructLayout(LayoutKind.Sequential)]
-    public readonly struct ActuatorLengths {
+    public readonly struct ActuatorLengths
+    {
         public readonly double U;
         public readonly double V;
         public readonly double W;

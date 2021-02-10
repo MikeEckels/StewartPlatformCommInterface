@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
-namespace Tester {
-    public class Platform {
-
+namespace PlatformLibrary {
+    public class Platform
+    {
         [DllImport("StewartPlatformCommInterface.dll")]
         private static extern IntPtr CreatePlatform();
 
@@ -42,47 +44,58 @@ namespace Tester {
 
         private readonly IntPtr _platformPointer;
 
-        public Platform() {
+        public Platform()
+        {
             _platformPointer = CreatePlatform();
         }
 
-        ~Platform() {
+        ~Platform()
+        {
             DeletePlatform(_platformPointer);
         }
 
-        public void Reset() {
+        public void Reset()
+        {
             ResetW(_platformPointer);
         }
 
-        public void Stop() {
+        public void Stop()
+        {
             StopW(_platformPointer);
         }
 
-        public void SetFunctionCode(int code) {
+        public void SetFunctionCode(int code)
+        {
             SetFunctionCodeW(_platformPointer, code);
         }
 
-        public void SetChannelCode(int code) {
+        public void SetChannelCode(int code)
+        {
             SetChannelCodeW(_platformPointer, code);
         }
 
-        public void SetMoveTimeMs(int milliseconds) {
+        public void SetMoveTimeMs(int milliseconds)
+        {
             SetMoveTimeMsW(_platformPointer, milliseconds);
         }
 
-        public bool SetPostion(int x, int y, int z, int u, int v, int w) {
+        public bool SetPostion(int x, int y, int z, int u, int v, int w)
+        {
             return SetPositionW(_platformPointer, x, y, z, u, v, w);
         }
 
-        public void SetRegister(ushort channelCode, ushort registerAddress, ushort value) {
+        public void SetRegister(ushort channelCode, ushort registerAddress, ushort value)
+        {
             SetRegisterW(_platformPointer, channelCode, registerAddress, value);
         }
 
-        public ActuatorLengths GetPositionSteps() {
+        public ActuatorLengths GetPositionSteps()
+        {
             return GetPositionStepsW(_platformPointer);
         }
 
-        public void Move() {
+        public void Move()
+        {
             MoveW(_platformPointer);
         }
     }
