@@ -30,7 +30,7 @@ namespace PlatformController {
             platform.SetChannelCode(1);
             platform.SetMoveTimeMs(1);
 
-            moveIsSafe = platform.SetPostion(0, 0, 0, 0, 0, 0);
+            moveIsSafe = platform.SetPosition(0, 0, 0, 0, 0, 0);
             checkMove(moveIsSafe);
 
             Console.ReadKey();

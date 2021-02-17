@@ -79,7 +79,7 @@ namespace PlatformLibrary {
             SetMoveTimeMsW(_platformPointer, milliseconds);
         }
 
-        public bool SetPostion(int x, int y, int z, int u, int v, int w)
+        public bool SetPosition(int x, int y, int z, int u, int v, int w)
         {
             return SetPositionW(_platformPointer, x, y, z, u, v, w);
         }
