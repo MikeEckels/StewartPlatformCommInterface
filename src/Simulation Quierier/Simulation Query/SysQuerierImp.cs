@@ -16,19 +16,16 @@ namespace SimWatcher
     interface SysQuerier
     {
         bool connectToSim(IntPtr ptr);
-        //void loadRequestVariables();
         void requestSimData(object sender, EventArgs e);
         void setRequestFrequency(TimeSpan time);
-        // void printData();
         bool disconnectFromSim();
     }
 
     class SysQuerierImp : SysQuerier
     {   
-        // private string TEST_FILE_LOCATION = @"D:\MSFS SDK\Samples\Test1\sysVars.txt";
         private int MAX_QUEUE_COUNT = 5;
-        private TimeSpan QUERY_TIMER_DEFAULT = new TimeSpan(0, 0, 0, 0, 500); //default to 1 second
-        private TimeSpan DEQUEUE_TIMER_DEFAULT = new TimeSpan(0, 0, 0, 1, 0); //default to 2 second
+        private TimeSpan QUERY_TIMER = new TimeSpan(0, 0, 0, 0, 500); //default to 1 second
+        private TimeSpan DEQUEUE_TIMER = new TimeSpan(0, 0, 0, 1, 0); //default to 2 second
 
 
         SimConnectClient scc;
@@ -40,7 +37,7 @@ namespace SimWatcher
         public event Notify DataDispatch;
 
 
-        public SysQuerierImp(String sysVarFileLocation){ //must be absolute path
+        public SysQuerierImp(String sysVarFileLocation, QueryDiagnostics qd){ //must be absolute path
             scc = new SimConnectClient();
             scc.DataReceived += dataReceived;
 
@@ -51,11 +48,16 @@ namespace SimWatcher
             initializeEventTimers();
 
             q = new Queue<Hashtable>(MAX_QUEUE_COUNT);
+
+
+            if(qd != null){
+                qd.startTrigger();//???????
+            }
         }
 
         public void setRequestFreq(int milliseconds){
-            DEQUEUE_TIMER_DEFAULT = new TimeSpan(0,0,0,0, milliseconds);
-            QUERY_TIMER_DEFAULT = new TimeSpan(0,0,0,0, milliseconds/2);
+            DEQUEUE_TIMER = new TimeSpan(0,0,0,0, milliseconds);
+            QUERY_TIMER = new TimeSpan(0,0,0,0, milliseconds/2);
         }
 
         public bool handleDef(ref Message m)
@@ -102,7 +104,6 @@ namespace SimWatcher
         public void requestSimData(object sender, EventArgs e)
         {
             scc.requestSimData();
-            Console.WriteLine("Data requested");
             //hashtable should have received all of the data by the next call of this function
             q.Enqueue(svl.getTable());
         }
@@ -111,12 +112,12 @@ namespace SimWatcher
         {
             //setup for request timer
             request_Timer = new DispatcherTimer();
-            request_Timer.Interval = QUERY_TIMER_DEFAULT;
+            request_Timer.Interval = QUERY_TIMER;
             request_Timer.Tick += new EventHandler(requestSimData);
 
             //setup for queue pop timer
             queue_Timer = new DispatcherTimer();
-            queue_Timer.Interval = DEQUEUE_TIMER_DEFAULT;
+            queue_Timer.Interval = DEQUEUE_TIMER;
             queue_Timer.Tick += new EventHandler(dispatchDequeue);
         }
 
