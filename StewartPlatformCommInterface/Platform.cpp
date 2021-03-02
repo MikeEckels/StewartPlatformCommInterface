@@ -131,6 +131,7 @@ void Platform::SetMoveTimeMs(int32_t ms) {
 //Sets platform position in X,Y,Z,R,P,Y, calculates IK, and calculates encoder pulses per actuator to move desired distance
 bool Platform::SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
 	ActuatorLengths aL = CalculateIK(Vector3D((double)x, (double)y, (double)z), EulerAngles(Vector3D((double)u, (double)v, (double)w), EulerConstants::EulerOrderXYZR));//Change to relative rotation
+	//std::cout << aL.ToString() << std::endl;
 	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.X, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
 	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
 	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
@@ -250,11 +251,18 @@ ActuatorLengths Platform::CalculateIK(Vector3D XYZ) {
 ActuatorLengths Platform::CalculateIK(Vector3D XYZ, EulerAngles YPR) {
 	XYZ.Z += PlatformParams::baseHeight;
 
+	//std::cout << YPR.ToString() << std::endl;
 	//These two lines rotate the input coordinate system to the proper orientation. Both in the translational and rotational axis.
 	YPR.Angles = Rotation(EulerAngles(Vector3D(0, 0, 60), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(YPR.Angles);
 	XYZ = Rotation(EulerAngles(Vector3D(30, 0, 0), EulerConstants::EulerOrderXYZR)).GetQuaternion().RotateVector(XYZ);
 
+	EulerAngles noYaw = YPR;
+	noYaw.Angles.X = 0;
+
+	Quaternion noYawQ = Rotation(noYaw).GetQuaternion();
 	Quaternion q = Rotation(YPR).GetQuaternion();
+
+	XYZ = noYawQ.UnrotateVector(XYZ);
 
 	L1 = q.RotateVector(P1) + XYZ - B1;
 	L2 = q.RotateVector(P2) + XYZ - B2;
