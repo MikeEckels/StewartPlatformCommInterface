@@ -1,0 +1,77 @@
+D:\MSFS SDK\Samples\Test1\bin\x64\Debug\Simvars.exe.config
+D:\MSFS SDK\Samples\Test1\bin\x64\Debug\Simvars.exe
+D:\MSFS SDK\Samples\Test1\bin\x64\Debug\Simvars.pdb
+D:\MSFS SDK\Samples\Test1\bin\x64\Debug\Microsoft.FlightSimulator.SimConnect.dll
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.Form1.resources
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.Properties.Resources.resources
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csproj.CoreCompileInputs.cache
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csproj.CopyComplete
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.exe
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.pdb
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csprojAssemblyReference.cache
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.Form1.resources
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\Simvars.Properties.Resources.resources
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csproj.CoreCompileInputs.cache
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\Simvars.exe
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\Simvars.pdb
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\bin\x64\Debug\Simvars.exe.config
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\bin\x64\Debug\Simvars.exe
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\bin\x64\Debug\Simvars.pdb
+C:\Users\admin\Downloads\HelicoperSimulator-main (1)\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csproj.CopyComplete
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.g.resources
+D:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csprojAssemblyReference.cache
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csprojAssemblyReference.cache
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\Simvars.g.resources
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.Form1.resources
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\Simvars.Properties.Resources.resources
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csproj.CoreCompileInputs.cache
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\Simvars.exe
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\Simvars.pdb
+D:\Downloads - D\HelicoperSimulator-main\Test1\bin\x64\Debug\Simvars.exe.config
+D:\Downloads - D\HelicoperSimulator-main\Test1\bin\x64\Debug\Simvars.exe
+D:\Downloads - D\HelicoperSimulator-main\Test1\bin\x64\Debug\Simvars.pdb
+D:\Downloads - D\HelicoperSimulator-main\Test1\obj\x64\Debug\SimWatcher.csproj.CopyComplete
+D:\Downloads - D\HelicoperSimulator-main\Test1\bin\x64\Debug\Microsoft.FlightSimulator.SimConnect.dll
+C:\MSFS SDK\Samples\Test1\bin\x64\Debug\Simvars.exe.config
+C:\MSFS SDK\Samples\Test1\bin\x64\Debug\Simvars.exe
+C:\MSFS SDK\Samples\Test1\bin\x64\Debug\Simvars.pdb
+C:\MSFS SDK\Samples\Test1\bin\x64\Debug\Microsoft.FlightSimulator.SimConnect.dll
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csprojAssemblyReference.cache
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.g.resources
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.Form1.resources
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.Properties.Resources.resources
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csproj.CoreCompileInputs.cache
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimWatcher.csproj.CopyComplete
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.exe
+C:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.pdb
+C:\MSFS SDK\Samples\Test1\bin\x64\Debug\PlatformLibrary.dll
+C:\MSFS SDK\Samples\Test1\bin\x64\Debug\PlatformLibrary.pdb
+D:\Documents\Test1\bin\x64\Debug\Simvars.exe.config
+D:\Documents\Test1\bin\x64\Debug\Simvars.exe
+D:\Documents\Test1\bin\x64\Debug\Simvars.pdb
+D:\Documents\Test1\bin\x64\Debug\Microsoft.FlightSimulator.SimConnect.dll
+D:\Documents\Test1\bin\x64\Debug\PlatformLibrary.dll
+D:\Documents\Test1\bin\x64\Debug\PlatformLibrary.pdb
+D:\Documents\Test1\obj\x64\Debug\SimWatcher.csprojAssemblyReference.cache
+D:\Documents\Test1\obj\x64\Debug\Simvars.g.resources
+D:\Documents\Test1\obj\x64\Debug\SimWatcher.Form1.resources
+D:\Documents\Test1\obj\x64\Debug\Simvars.Properties.Resources.resources
+D:\Documents\Test1\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
+D:\Documents\Test1\obj\x64\Debug\SimWatcher.csproj.CoreCompileInputs.cache
+D:\Documents\Test1\obj\x64\Debug\SimWatcher.csproj.CopyComplete
+D:\Documents\Test1\obj\x64\Debug\Simvars.exe
+D:\Documents\Test1\obj\x64\Debug\Simvars.pdb
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\Simvars.exe.config
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\Simvars.exe
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\Simvars.pdb
+C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\SimWatcher.csprojAssemblyReference.cache
+C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\Simvars.g.resources
+C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\SimWatcher.Form1.resources
+C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\Simvars.Properties.Resources.resources
+C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
+C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\Simvars.exe
+C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\Simvars.pdb
