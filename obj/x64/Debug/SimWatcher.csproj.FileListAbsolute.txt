@@ -75,3 +75,17 @@ C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\Si
 C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
 C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\Simvars.exe
 C:\Users\gregoire001\Downloads\Test1-20210302T183736Z-001\Test1\obj\x64\Debug\Simvars.pdb
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\Simvars.g.resources
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\SimWatcher.Form1.resources
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\Simvars.Properties.Resources.resources
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\SimWatcher.csproj.GenerateResource.cache
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\SimWatcher.csproj.CoreCompileInputs.cache
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\Simvars.exe
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\Simvars.pdb
+D:\Documents\GitHub\GitHub\StewartPlatformCommInterface\Build\x64\Debug\Simvars.exe.config
+D:\Documents\GitHub\GitHub\StewartPlatformCommInterface\Build\x64\Debug\Simvars.exe
+D:\Documents\GitHub\GitHub\StewartPlatformCommInterface\Build\x64\Debug\Simvars.pdb
+D:\Documents\GitHub\StewartPlatformCommInterface\obj\x64\Debug\SimWatcher.csproj.CopyComplete
+D:\Desktop\DLL\Simvars.exe.config
+D:\Desktop\DLL\Simvars.exe
+D:\Desktop\DLL\Simvars.pdb

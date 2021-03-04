@@ -33,7 +33,7 @@ namespace SimWatcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            sc.control();
+            sc.control(this.Handle);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

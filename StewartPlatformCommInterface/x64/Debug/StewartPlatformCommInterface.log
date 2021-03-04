@@ -1,0 +1,39 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(477,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  AxisAngle.cpp
+  DirectionAngle.cpp
+  EulerAngles.cpp
+  EulerConstants.cpp
+  EulerOrder.cpp
+  main.cpp
+  Mathematics.cpp
+  Platform.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(135,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(136,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(137,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(138,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(139,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\Platform.cpp(140,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  PlatformWrapper.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\PlatformWrapper.cpp(39,89): warning C4190: 'GetPositionStepsW' has C-linkage specified, but returns UDT 'ActuatorLengths' which is incompatible with C
+D:\Documents\GitHub\StewartPlatformCommInterface\StewartPlatformCommInterface\ActuatorLengths.h(5): message : see declaration of 'ActuatorLengths'
+  Quaternion.cpp
+  Rotation.cpp
+  RotationMatrix.cpp
+  UDPClient.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+  Vector.cpp
+  YawPitchRoll.cpp
+  Generating Code...
+     Creating library D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\StewartPlatformCommInterface.lib and object D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\StewartPlatformCommInterface.exp
+  StewartPlatformCommInterface.vcxproj -> D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\StewartPlatformCommInterface.dll

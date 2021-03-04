@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 class BasicSimulation : ISimulation
 {
-    private string FILEPATH = "ADD FILE PATH";
+    private string FILEPATH = @"D:/Documents/GitHub/StewartPlatformCommInterface/sysVars.txt";
 
     public string getVarFilePath()
     {
@@ -24,8 +24,8 @@ class BasicSimulation : ISimulation
             return pp;
         }
 
-        pp.u = boundAngle(radiansToDegrees(PlanePitchDegrees));
-        pp.v = boundAngle(inverse(radiansToDegrees(PlaneBankDegrees)));
+        pp.v = boundAngle(radiansToDegrees(PlanePitchDegrees));
+        pp.w = boundAngle(inverse(radiansToDegrees(PlaneBankDegrees)));
         return pp;
     }
 

@@ -3,16 +3,15 @@ using SimWatcher;
 using System;
 using System.Collections;
 using System.Windows.Forms;
+using PlatformLibrary;
 
 interface ISystemController{
-    void control();
+    void control(IntPtr formHandle);
     void dispose();
-    void handleDef(ref Message m);
-    void setFormHandle(IntPtr ptr);
+    bool handleDef(ref Message m);
 }
 
 public class SystemController : ISystemController{
-    private IntPtr formHandle;
     private SysQuerierImp sq;
     private ISimulation s;
     private Platform p;
@@ -28,6 +27,9 @@ public class SystemController : ISystemController{
         sq.setRequestFreq(REQUEST_FREQ);
 
         p = new Platform();
+
+        p.SetPosition(0, 0, 230, 0, 0, 0);
+        p.Move();
     }
  
 
@@ -37,16 +39,18 @@ public class SystemController : ISystemController{
         Hashtable t = data.t;
 
         PlatformPosition pp = s.simulate(t);
-        p.setPosition(pp.x,pp.y,pp.z,pp.u,pp.v,pp.w);
-        p.move();
+        pp.printPosition();
+        if (p.SetPosition(pp.x, pp.y, pp.z, pp.u, pp.v, pp.w))
+        {
+            p.Move();
+        }else
+        {
+            Console.WriteLine("**** INVALID MOVE *****");
+        }
+        
     }
 
-    public void control(){
-       if(formHandle == null){
-           Console.WriteLine("You must specify the form handle before connecting to the Sim");
-           return;
-       }
-
+    public void control(IntPtr formHandle){
        isConnected = sq.connectToSim(formHandle);
         Console.WriteLine("The Simulation is connected:____ " + isConnected + "_____");
     }
@@ -56,11 +60,7 @@ public class SystemController : ISystemController{
     }
 
 
-    public void handleDef(ref Message m){
-        sq.handleDef(ref m);
-    }
-
-    public void setFormHandle(IntPtr ptr){
-        this.formHandle = ptr;
+    public bool handleDef(ref Message m){
+        return sq.handleDef(ref m);
     }
 }

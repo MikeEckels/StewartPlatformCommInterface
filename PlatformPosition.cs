@@ -23,9 +23,14 @@ class PlatformPosition
         this.v = v;
         this.w = w;
     }
+
+    public void printPosition()
+    {
+        Console.WriteLine("X: " + this.x + "Y: " + this.y + "Z: " + this.z);
+    }
     
     public static PlatformPosition neutralPosition()
     {
-        return new PlatformPosition(0,0,20,0,0,0);
+        return new PlatformPosition(0,0,230,0,0,0);
     }
 }

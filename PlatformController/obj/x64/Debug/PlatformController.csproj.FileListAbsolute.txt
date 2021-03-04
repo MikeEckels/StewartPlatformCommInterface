@@ -1,0 +1,14 @@
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformController.exe
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformController.deps.json
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformController.runtimeconfig.json
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformController.runtimeconfig.dev.json
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformController.dll
+D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformController.pdb
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.csprojAssemblyReference.cache
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.AssemblyInfoInputs.cache
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.AssemblyInfo.cs
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.csproj.CoreCompileInputs.cache
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.csproj.CopyComplete
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.dll
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.pdb
+D:\Documents\GitHub\StewartPlatformCommInterface\PlatformController\obj\x64\Debug\PlatformController.genruntimeconfig.cache
