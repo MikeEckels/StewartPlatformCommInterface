@@ -3,9 +3,9 @@
 //Initializing Platform Mechanical Parameters
 const double PlatformParams::basePlateRadius = 546.1;//base center point to center of actuator mounting bracket
 const double PlatformParams::baseMountingAngle = 10.613;//arc angle between actuator mounting brackets from center of platform
-const double PlatformParams::platformPlateRadius = 546.1;//platform center point to center of actuator mounting bracket
+const double PlatformParams::platformPlateRadius = 636.1;//platform center point to center of actuator mounting bracket 546.1
 const double PlatformParams::platformMountingAngle = 10.613;//arc angle between actuator mounting brackets from center of platform
-const double PlatformParams::baseHeight = 850.9;//platform height from ground when at 0,0,0
+const double PlatformParams::baseHeight = 850.9;//platform height from ground when at 0,0,0 -> 850.9
 const double PlatformParams::maximumLength = 460.0;//Maximum actuator stroke actual is 475. 460 is for safety
 double PlatformParams::baseActuatorLength = 0;//leave this alone, used in IK
 
@@ -262,7 +262,7 @@ ActuatorLengths Platform::CalculateIK(Vector3D XYZ, EulerAngles YPR) {
 	Quaternion noYawQ = Rotation(noYaw).GetQuaternion();
 	Quaternion q = Rotation(YPR).GetQuaternion();
 
-	XYZ = noYawQ.UnrotateVector(XYZ);
+	XYZ = noYawQ.RotateVector(XYZ);
 
 	L1 = q.RotateVector(P1) + XYZ - B1;
 	L2 = q.RotateVector(P2) + XYZ - B2;
