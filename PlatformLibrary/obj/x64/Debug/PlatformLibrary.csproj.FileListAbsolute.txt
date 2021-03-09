@@ -1,5 +1,0 @@
-D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformLibrary.dll
-D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\PlatformLibrary.pdb
-D:\Documents\GitHub\StewartPlatformCommInterface\PlatformLibrary\obj\x64\Debug\PlatformLibrary.csproj.CoreCompileInputs.cache
-D:\Documents\GitHub\StewartPlatformCommInterface\PlatformLibrary\obj\x64\Debug\PlatformLibrary.dll
-D:\Documents\GitHub\StewartPlatformCommInterface\PlatformLibrary\obj\x64\Debug\PlatformLibrary.pdb

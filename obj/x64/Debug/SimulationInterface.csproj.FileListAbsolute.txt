@@ -1,6 +1,0 @@
-D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.Form1.resources
-D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.Properties.Resources.resources
-D:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimulationInterface.csproj.GenerateResource.cache
-D:\MSFS SDK\Samples\Test1\obj\x64\Debug\SimulationInterface.csproj.CoreCompileInputs.cache
-D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.exe
-D:\MSFS SDK\Samples\Test1\obj\x64\Debug\Simvars.pdb
