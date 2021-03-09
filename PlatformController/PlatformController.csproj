@@ -8,24 +8,24 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutputPath>D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutputPath>D:\Documents\GitHub\StewartPlatformCommInterface\Build\x64\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="PlatformLibrary">
-      <HintPath>..\Build\x64\Debug\PlatformLibrary.dll</HintPath>
+      <HintPath>..\Build\$(Platform)\$(Configuration)\PlatformLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 
