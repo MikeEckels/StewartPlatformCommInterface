@@ -77,6 +77,7 @@
     <Compile Include="ISimulation.cs" />
     <Compile Include="keyUnit.cs" />
     <Compile Include="PlatformPosition.cs" />
+    <Compile Include="QuadMapSimulation.cs" />
     <Compile Include="SimConnectClient.cs" />
     <Compile Include="SysQuerierImp.cs" />
     <Compile Include="Form1.cs">

@@ -34,16 +34,16 @@ class QuadMapSimulation : ISimulation
         double accelY = (double)t["ACCELERATION BODY Y"];
         double accelZ = (double)t["ACCELERATION BODY Z"];
 
-        if (accelX == null) { return pp; }
+        if (t["Acceleration Body X"] == null) { return pp; }
 
 
-        pp.v = bound(radiansToDegrees(PlanePitchDegrees), MIN_PLAT_ANG, MAX_PLAT_ANG);
-        pp.w = bound(inverse(radiansToDegrees(PlaneBankDegrees)), MIN_PLAT_ANG, MAX_PLAT_ANG);
+        pp.v = (int)bound(radiansToDegrees(PlanePitchDegrees), (double)MIN_PLAT_ANG, (double)MAX_PLAT_ANG);
+        pp.w = (int)bound(inverse(radiansToDegrees(PlaneBankDegrees)), MIN_PLAT_ANG, MAX_PLAT_ANG);
 
 
         //do i need the bound???
         pp.x = (int) quadraticMap(bound(accelX, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL), MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS,MAX_PLAT_POS);
-        pp.y= (int)quadraticMap(bound((accelZ, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL), MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS,MAX_PLAT_POS);
+        pp.y= (int)quadraticMap(bound(accelZ, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL), MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS,MAX_PLAT_POS);
 
 
         return pp;
@@ -66,18 +66,18 @@ class QuadMapSimulation : ISimulation
     }
 
     private static double RtoDCONVFACT = (180 / Math.PI);
-    private int radiansToDegrees(object x)
+    private double radiansToDegrees(object x)
     {
-        return (int)(RtoDCONVFACT * (double)x);
+        return RtoDCONVFACT * (double)x;
     }
 
-    private int inverse(int x)
+    private double inverse(double x)
     {
         return -1 * x;
     }
 
     private double quadraticMap(double input, double in_min, double in_max, double out_min, double out_max)
     {
-        return ((input^2) - (in_min^2)) * (out_max - out_min) / ((in_max^2) - in_min) + out_min;
+        return ((Math.Pow(input,2)) - (Math.Pow(in_min,2))) * (out_max - out_min) / ((Math.Pow(in_max,2) - in_min)) + out_min;
     }
 }
