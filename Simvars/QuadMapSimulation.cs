@@ -15,10 +15,10 @@ class QuadMapSimulation : ISimulation
         return FILEPATH;
     }
 
-    static int MAX_SYM_BODYACCEL = 30; //this is a guess
-    static int MIN_SYM_BODYACCEL = -30; //this is a guess;
-    static int MAX_PLAT_POS = 460;
-    static int MIN_PLAT_POS = -460;
+    static int MAX_SYM_BODYACCEL = 5; //this is a guess
+    static int MIN_SYM_BODYACCEL = -5; //this is a guess;
+    static int MAX_PLAT_POS = 230;
+    static int MIN_PLAT_POS = -230;
 
     //Platform Tilt Max & Min
     static int MAX_PLAT_ANG = 15;
@@ -27,6 +27,7 @@ class QuadMapSimulation : ISimulation
     public PlatformPosition simulate(Hashtable t)
     {
         PlatformPosition pp = PlatformPosition.neutralPosition();
+        if (t["ACCELERATION BODY X"] == null) { return pp; }
 
         double PlanePitchDegrees = (double)t["PLANE PITCH DEGREES"];
         double PlaneBankDegrees = (double)t["PLANE BANK DEGREES"];
@@ -34,16 +35,12 @@ class QuadMapSimulation : ISimulation
         double accelY = (double)t["ACCELERATION BODY Y"];
         double accelZ = (double)t["ACCELERATION BODY Z"];
 
-        if (t["Acceleration Body X"] == null) { return pp; }
-
-
         pp.v = (int)bound(radiansToDegrees(PlanePitchDegrees), (double)MIN_PLAT_ANG, (double)MAX_PLAT_ANG);
         pp.w = (int)bound(inverse(radiansToDegrees(PlaneBankDegrees)), MIN_PLAT_ANG, MAX_PLAT_ANG);
 
-
         //do i need the bound???
-        pp.x = (int) quadraticMap(bound(accelX, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL), MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS,MAX_PLAT_POS);
-        pp.y= (int)quadraticMap(bound(accelZ, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL), MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS,MAX_PLAT_POS);
+        pp.x = (int) bound(quadraticMap(accelX, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS, MAX_PLAT_POS), MIN_PLAT_POS, MAX_PLAT_POS);
+        pp.y = (int) bound(quadraticMap(accelY, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS, MAX_PLAT_POS), MIN_PLAT_POS, MAX_PLAT_POS);
 
 
         return pp;
@@ -78,6 +75,8 @@ class QuadMapSimulation : ISimulation
 
     private double quadraticMap(double input, double in_min, double in_max, double out_min, double out_max)
     {
-        return ((Math.Pow(input,2)) - (Math.Pow(in_min,2))) * (out_max - out_min) / ((Math.Pow(in_max,2) - in_min)) + out_min;
+        //return (Math.Pow(input-in_min,3) * (out_max - out_min) / (Math.Pow(in_max,3) - out_max));
+
+        return Math.Pow(input, 3) + Math.Pow(input, 2) + input;
     }
 }

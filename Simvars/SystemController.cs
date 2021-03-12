@@ -20,7 +20,7 @@ public class SystemController : ISystemController{
     private bool isConnected = false;
 
     public SystemController(){
-        s = new VelAccelSimulation();
+        s = new QuadMapSimulation();
 
 
         sq = new SysQuerierImp(s.getVarFilePath());

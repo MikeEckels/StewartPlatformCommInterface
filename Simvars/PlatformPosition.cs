@@ -26,7 +26,7 @@ class PlatformPosition
 
     public void printPosition()
     {
-        Console.WriteLine("X: " + this.x + "Y: " + this.y + "Z: " + this.z);
+        Console.WriteLine("X:" + this.x + " Y:" + this.y + " Z:" + this.z + " U:" + this.u + " V:" + this.v + " W:" + this.w);
     }
     
     public static PlatformPosition neutralPosition()

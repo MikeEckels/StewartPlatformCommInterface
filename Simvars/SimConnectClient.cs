@@ -198,7 +198,7 @@ namespace SimWatcher
         // The case where the user closes Prepar3D
         private void simconnect_OnRecvQuit(SimConnect sender, SIMCONNECT_RECV data)
         {
-            Console.WriteLine("Connection clossed");
+            Console.WriteLine("Connection closed");
             disconnectFromSim();
         }
 
