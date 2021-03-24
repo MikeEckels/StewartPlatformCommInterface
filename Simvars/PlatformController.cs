@@ -1,10 +1,15 @@
-class PlatformController{
-    private IPlatform p;
-    private Queue q;
-    static const int MAX_QUEUE_COUNT = 2;
-    static const double MAX_ACCEl = 9.81; //m/s^2
+using PlatformLibrary;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
-    public PlatformController(IPlatform p){
+class PlatformController{
+    private Platform p;
+    private Queue<TimeDepPosition> q;
+    private const int MAX_QUEUE_COUNT = 2;
+    private const double MAX_ACCEl = 9.81; //m/s^2
+
+    public PlatformController(Platform p){
         this.p = p;
         q= new Queue<TimeDepPosition>(MAX_QUEUE_COUNT);
     }
@@ -18,20 +23,22 @@ class PlatformController{
 
     public void newPosition(PlatformPosition pp){
         q.Enqueue(new TimeDepPosition(pp));
-        if(acValid() && p.SetPosition(pp.x,pp.y,.pp.z,pp.u,pp.v,pp.w)){
-            p.move();
+        if(acValid() && p.SetPosition(pp.x,pp.y,pp.z,pp.u,pp.v,pp.w)){
+            p.Move();
             return;
         }
         Console.WriteLine("Move not valid");
     }
 
     private bool acValid(){
-        TimeDepPosition p1 = q.Dequeue();
-        TimeDepPosition p2 = q.Peek();
-        long deltaT = p2.time_milli - p1.time_milli;
+        TimeDepPosition tdp1 = q.Dequeue();
+        TimeDepPosition tdp2 = q.Peek();
+        long deltaT = tdp2.time_milli - tdp1.time_milli;
 
-        Translation[] translations = {new Translation(p1.x,p2.x), new Translation(p1.y,p2.y), new Translation(p1.z, p2.z)}
-        for(int i = 0; i < translations.length; i++){
+        Translation[] translations = {new Translation(tdp1.pp.x,tdp2.pp.x),
+                                      new Translation(tdp1.pp.y, tdp2.pp.y),
+                                      new Translation(tdp1.pp.z, tdp2.pp.z)};
+        for(int i = 0; i < translations.Length; i++){
             if(translations[i].calcAccel(deltaT) > MAX_ACCEl){
                 return false;
             }
@@ -41,8 +48,8 @@ class PlatformController{
 }
 
 class TimeDepPosition{
-    PlatformPosition pp;
-    long time_milli;
+    public PlatformPosition pp;
+    public long time_milli;
 
     public TimeDepPosition(PlatformPosition pp){
         this.pp = pp;

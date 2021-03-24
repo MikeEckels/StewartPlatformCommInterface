@@ -5,6 +5,7 @@ using System.Collections;
 using System.Windows.Forms;
 using PlatformLibrary;
 
+
 interface ISystemController{
     void control(IntPtr formHandle);
     void dispose();
@@ -15,14 +16,12 @@ public class SystemController : ISystemController{
     private SysQuerierImp sq;
     private ISimulation s;
     private PlatformController pc;
-    private AccelerationSmoother acs;
 
     private int REQUEST_FREQ = 2; //milliseconds
     private bool isConnected = false;
 
     public SystemController(){
         s = new QuadMapSimulation();
-        acs = new AccelerationSmoother();
 
 
         sq = new SysQuerierImp(s.getVarFilePath());
