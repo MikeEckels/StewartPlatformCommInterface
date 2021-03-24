@@ -21,7 +21,7 @@ public class SystemController : ISystemController{
     private bool isConnected = false;
 
     public SystemController(){
-        s = new QuadMapSimulation();
+        s = new CubicMapSimulation();
 
 
         sq = new SysQuerierImp(s.getVarFilePath());

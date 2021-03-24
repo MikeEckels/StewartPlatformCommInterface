@@ -7,7 +7,7 @@ class PlatformController{
     private Platform p;
     private Queue<TimeDepPosition> q;
     private const int MAX_QUEUE_COUNT = 2;
-    private const double MAX_ACCEl = 9.81; //m/s^2
+    private const double MAX_ACCEl = 1; //m/s^2
 
     public PlatformController(Platform p){
         this.p = p;
@@ -31,14 +31,15 @@ class PlatformController{
     }
 
     private bool acValid(){
+        if (q.Count < 2) { return false; }
         TimeDepPosition tdp1 = q.Dequeue();
         TimeDepPosition tdp2 = q.Peek();
         long deltaT = tdp2.time_milli - tdp1.time_milli;
-
         Translation[] translations = {new Translation(tdp1.pp.x,tdp2.pp.x),
                                       new Translation(tdp1.pp.y, tdp2.pp.y),
                                       new Translation(tdp1.pp.z, tdp2.pp.z)};
         for(int i = 0; i < translations.Length; i++){
+            Console.WriteLine("Acceleration " + (i + 1) + ": " + translations[i].calcAccel(deltaT));
             if(translations[i].calcAccel(deltaT) > MAX_ACCEl){
                 return false;
             }
@@ -72,6 +73,7 @@ class Translation{
     }
 
     public double calcAccel(long t_milli){
-        return 2000 * (pos2 - pos1) / Math.Pow(t_milli, 2);
+
+        return Math.Abs(200 * (pos2 - pos1) / Math.Pow(t_milli, 2));
     }
 }

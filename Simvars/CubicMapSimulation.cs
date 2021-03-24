@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class QuadMapSimulation : ISimulation
+class CubicMapSimulation : ISimulation
 {
-    private string FILEPATH = @"../../../Simvars/QuadMap.txt";
+    private string FILEPATH = @"../../../Simvars/CubicMap.txt";
 
     public string getVarFilePath()
     {
@@ -39,8 +39,8 @@ class QuadMapSimulation : ISimulation
         pp.w = (int)bound(inverse(radiansToDegrees(PlaneBankDegrees)), MIN_PLAT_ANG, MAX_PLAT_ANG);
 
         //do i need the bound???
-        pp.x = (int) bound(quadraticMap(accelX, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS, MAX_PLAT_POS), MIN_PLAT_POS, MAX_PLAT_POS);
-        pp.y = (int) bound(quadraticMap(accelY, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS, MAX_PLAT_POS), MIN_PLAT_POS, MAX_PLAT_POS);
+        pp.x = (int) bound(cubicMap(accelX, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS, MAX_PLAT_POS), MIN_PLAT_POS, MAX_PLAT_POS);
+        pp.y = (int) bound(cubicMap(accelY, MIN_SYM_BODYACCEL, MAX_SYM_BODYACCEL, MIN_PLAT_POS, MAX_PLAT_POS), MIN_PLAT_POS, MAX_PLAT_POS);
 
 
         return pp;
@@ -73,10 +73,8 @@ class QuadMapSimulation : ISimulation
         return -1 * x;
     }
 
-    private double quadraticMap(double input, double in_min, double in_max, double out_min, double out_max)
+    private double cubicMap(double input, double in_min, double in_max, double out_min, double out_max)
     {
-        //return (Math.Pow(input-in_min,3) * (out_max - out_min) / (Math.Pow(in_max,3) - out_max));
-
         return Math.Pow(input, 3) + Math.Pow(input, 2) + input;
     }
 }
