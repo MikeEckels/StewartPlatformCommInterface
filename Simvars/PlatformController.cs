@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 class PlatformController{
     private Platform p;
-    private Queue<TimeDepPosition> q;
-    private const int MAX_QUEUE_COUNT = 2;
     private const double MAX_ACCEl = 1; //m/s^2
+    private TimeDepPosition lastPos;
 
     public PlatformController(Platform p){
         this.p = p;
@@ -16,37 +15,61 @@ class PlatformController{
 
     public void initialize(){
         PlatformPosition initial = PlatformPosition.neutralPosition();
-        newPosition(initial);
-        p.SetPosition(initial.x, initial.y, initial.z, initial.u, initial.v, initial.w);
+        lastPos = new TimeDepPosition(initial);
+        setPosition(initial);
         p.Move();
     }
 
     public void newPosition(PlatformPosition pp){
-        q.Enqueue(new TimeDepPosition(pp));
-        if(acValid() && p.SetPosition(pp.x,pp.y,pp.z,pp.u,pp.v,pp.w)){
-            p.Move();
-            return;
-        }
-        Console.WriteLine("Move not valid");
+        TimeDepPosition newPos = new TimeDepPosition(pp);
+        newPos = adjustAccelerations(lastPos, newPos);
+        lastPos = newPos;
+        if(!setPosition(newPos.pp)){Console.WriteLine("Invalid Position"); return;}
+        p.Move();
     }
 
-    private bool acValid(){
-        if (q.Count < 2) { return false; }
-        TimeDepPosition tdp1 = q.Dequeue();
-        TimeDepPosition tdp2 = q.Peek();
-        long deltaT = tdp2.time_milli - tdp1.time_milli;
-        Translation[] translations = {new Translation(tdp1.pp.x,tdp2.pp.x),
-                                      new Translation(tdp1.pp.y, tdp2.pp.y),
-                                      new Translation(tdp1.pp.z, tdp2.pp.z)};
-        for(int i = 0; i < translations.Length; i++){
-            Console.WriteLine("Acceleration " + (i + 1) + ": " + translations[i].calcAccel(deltaT));
-            if(translations[i].calcAccel(deltaT) > MAX_ACCEl){
-                return false;
+    private bool setPosition(PlatformPosition pp){
+        return p.setPosition(pp.x,pp.y,pp.z,pp.u,pp.v,pp.w);
+    }
+
+
+    private TimeDepPosition adjustAccelerations(TimeDepPosition old, TimeDepPosition new){
+        TimeDepPosition returnPos = new;
+        long deltaT = new.time_milli - old.time_milli;
+        Translations t = new Translations(new.pp, old.pp);
+
+        foreach (var trans in t.getArr())
+        {   
+            if(trans.calcAccel(deltaT) > MAX_ACCEl){
+                trans.meetAccelSpec(MAX_ACCEl, deltaT);
             }
         }
-        return true;
+        returnPos.pp = t.buildPlatPositionObject();
+    }
+
+}
+class Translations{
+    private Translation[] t;
+    public Translations(PlatformPosition new, PlatformPosition old){
+        t = {
+            new Translation(new.x, old.x),
+            new Translation(new.y, old.y),
+            new Translation(new.z, old.z),
+            new Translation(new.u, old.u),
+            new Translation(new.v, old.v),
+            new Translation(new.w, old.w)
+        }
+    }
+
+    public Translation[] getArr(){
+        return t;
+    }
+
+    public PlatformPosition buildPlatPositionObject(){
+        return new PlatformPosition(t[0].getLast(), t[1].getLast(), t[2].getLast(), t[3].getLast(), t[4].getLast(), t[5].getLast());
     }
 }
+
 
 class TimeDepPosition{
     public PlatformPosition pp;
@@ -64,16 +87,23 @@ class TimeDepPosition{
 
 
 class Translation{
-    private int pos1;
-    private int pos2;
+    private int first;
+    private int last;
 
-    public Translation(int pos1, int pos2){
-        this.pos1 = pos1;
-        this.pos2 = pos2;
+    public Translation(int last, int first){
+        this.last = last;
+        this.first = first;
     }
 
     public double calcAccel(long t_milli){
+        return Math.Abs(200 * (last - first) / Math.Pow(t_milli, 2));
+    }
 
-        return Math.Abs(200 * (pos2 - pos1) / Math.Pow(t_milli, 2));
+    public double meetAccelSpec(double maxAccel, long t_milli){
+        this.last = (maxAccel * Math.Pow(t_milli,2) / 200) + this.first;
+    }
+
+    public int getLast(){
+        return this.last;
     }
 }
