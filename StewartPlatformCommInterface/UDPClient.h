@@ -9,6 +9,7 @@ public:
 	UDPClient(const std::string& ipAddress, const std::string& port);
 	~UDPClient();
 
+	void PrintSendBuffer(unsigned char*, int size);
 	void Send(unsigned char* buff, int size);
 
 private:

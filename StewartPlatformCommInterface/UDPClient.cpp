@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "UDPClient.h"
 
 UDPClient::UDPClient(const std::string& ipAddress, const std::string& port) : socket{ ioService } {
@@ -13,6 +14,13 @@ UDPClient::UDPClient(const std::string& ipAddress, const std::string& port) : so
 
 UDPClient::~UDPClient() {
 	socket.close();
+}
+
+void UDPClient::PrintSendBuffer(unsigned char* buff, int size) {
+    for (int i = 0; i < size; i++) {
+        std::cout << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << (int)buff[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
 void UDPClient::Send(unsigned char* buff, int size) {
