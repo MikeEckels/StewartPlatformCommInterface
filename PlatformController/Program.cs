@@ -30,7 +30,15 @@ namespace PlatformController {
             platform.SetChannelCode(1);
             platform.SetMoveTimeMs(1);
 
-            moveIsSafe = platform.SetPosition(0, 0, 0, 0, 0, 0);
+            for (double i = 0; i < 360 * 4; i += 10.0) {
+                double x = Math.Sin(i * 3.14159 / 180.0) * 20.0;
+                double y = Math.Cos(i * 3.14159 / 180.0) * 20.0;
+                double yaw = 0;// Math.Cos(i * 3.14159 / 180.0 * 2) * 20.0;
+                moveIsSafe = platform.SetPosition(0, 0, 230, (int)yaw, (int)x, (int)y);
+                checkMove(moveIsSafe);
+                System.Threading.Thread.Sleep(100);
+            }
+              
             checkMove(moveIsSafe);
 
             Console.ReadKey();

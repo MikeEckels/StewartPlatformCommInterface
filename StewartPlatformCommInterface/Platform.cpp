@@ -77,7 +77,6 @@ void Platform::Stop() {
 
 //Generate data buffer and send over UDP
 void Platform::Move() {
-	AddMovement();
 	this->udpTxBuffer[UDPWordOffsets::confirmCodeOffset] = (short)FlipUShortBytes(UDPData::confirmCode);
 	this->udpTxBuffer[UDPWordOffsets::passOffset] = (short)FlipUShortBytes(UDPData::passCode);
 	this->udpTxBuffer[UDPWordOffsets::functionCodeOffset] = (short)FlipUShortBytes(UDPData::functionCode);
@@ -111,6 +110,7 @@ void Platform::Move() {
 	//runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
 	//client.PrintSendBuffer(this->udpSendBuffer, udpSendBufferSize);
 	client.Send(this->udpSendBuffer, udpSendBufferSize);
+	AddMovement();
 }
 
 //Sets Platform function register
