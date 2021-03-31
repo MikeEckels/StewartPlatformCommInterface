@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 class VelAccelSimulation : ISimulation
 {
-    private string FILEPATH = @"../../../Simvars/VelAccel.txt";
+    private const string FILEPATH = @"../../../Simvars/VelAccel.txt";
 
     public string getVarFilePath()
     {

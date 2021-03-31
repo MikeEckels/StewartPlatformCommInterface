@@ -27,7 +27,7 @@ namespace SimWatcher
     class SysQuerierImp : SysQuerier
     {   
         // private string TEST_FILE_LOCATION = @"D:\MSFS SDK\Samples\Test1\sysVars.txt";
-        private int MAX_QUEUE_COUNT = 5;
+        private const int MAX_QUEUE_COUNT = 5;
         private TimeSpan QUERY_TIMER_DEFAULT = new TimeSpan(0, 0, 0, 0, 1); //default to .5 second
         private TimeSpan DEQUEUE_TIMER_DEFAULT = new TimeSpan(0, 0, 0, 0, 2); //default to 1 second
 

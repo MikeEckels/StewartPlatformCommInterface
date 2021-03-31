@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 class BasicSimulation : ISimulation
 {
-    private string FILEPATH = @"../../../Simvars/sysVars.txt";
+    private const string FILEPATH = @"../../../Simvars/sysVars.txt";
 
     public string getVarFilePath()
     {
