@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 class CubicMapSimulation : ISimulation
 {
-    private string FILEPATH = @"../../../Simvars/CubicMap.txt";
+    private const string FILEPATH = @"../../../Simvars/CubicMap.txt";
 
     public string getVarFilePath()
     {

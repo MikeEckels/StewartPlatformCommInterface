@@ -10,7 +10,7 @@ class PlatformController{
 
     public PlatformController(Platform p){
         this.p = p;
-        q= new Queue<TimeDepPosition>(MAX_QUEUE_COUNT);
+        Queue<TimeDepPosition> q= new Queue<TimeDepPosition>(5); //Should be using "MAX_QUEUE_COUNT". Do we need a getter in "SysQuerierImp.cs" or make it public ??
     }
 
     public void initialize(){
@@ -29,14 +29,14 @@ class PlatformController{
     }
 
     private bool setPosition(PlatformPosition pp){
-        return p.setPosition(pp.x,pp.y,pp.z,pp.u,pp.v,pp.w);
+        return p.SetPosition(pp.x,pp.y,pp.z,pp.u,pp.v,pp.w);
     }
 
 
-    private TimeDepPosition adjustAccelerations(TimeDepPosition old, TimeDepPosition new){
-        TimeDepPosition returnPos = new;
-        long deltaT = new.time_milli - old.time_milli;
-        Translations t = new Translations(new.pp, old.pp);
+    private TimeDepPosition adjustAccelerations(TimeDepPosition oldp, TimeDepPosition newp){
+        TimeDepPosition returnPos = newp;
+        long deltaT = newp.time_milli - oldp.time_milli;
+        Translations t = new Translations(newp.pp, oldp.pp);
 
         foreach (var trans in t.getArr())
         {   
@@ -45,23 +45,22 @@ class PlatformController{
             }
         }
         returnPos.pp = t.buildPlatPositionObject();
+        return returnPos;
     }
 
 }
 class Translations{
-    private Translation[] t;
-    public Translations(PlatformPosition new, PlatformPosition old){
-        t = {
-            new Translation(new.x, old.x),
-            new Translation(new.y, old.y),
-            new Translation(new.z, old.z),
-            new Translation(new.u, old.u),
-            new Translation(new.v, old.v),
-            new Translation(new.w, old.w)
-        }
+    private List<Translation> t = new List<Translation>();
+    public Translations(PlatformPosition newp, PlatformPosition oldp){
+        t.Add(new Translation(newp.x, oldp.x));
+        t.Add(new Translation(newp.y, oldp.y));
+        t.Add(new Translation(newp.z, oldp.z));
+        t.Add(new Translation(newp.u, oldp.u));
+        t.Add(new Translation(newp.v, oldp.v));
+        t.Add(new Translation(newp.w, oldp.w));
     }
 
-    public Translation[] getArr(){
+    public List<Translation> getArr(){
         return t;
     }
 
@@ -99,8 +98,8 @@ class Translation{
         return Math.Abs(200 * (last - first) / Math.Pow(t_milli, 2));
     }
 
-    public double meetAccelSpec(double maxAccel, long t_milli){
-        this.last = (maxAccel * Math.Pow(t_milli,2) / 200) + this.first;
+    public int meetAccelSpec(double maxAccel, long t_milli){
+        return this.last = (int)((maxAccel * Math.Pow(t_milli,2) / 200) + this.first);
     }
 
     public int getLast(){
