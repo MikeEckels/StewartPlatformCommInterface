@@ -1,11 +1,10 @@
 using PlatformLibrary;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 class PlatformController{
     private Platform p;
-    private const double MAX_ACCEl = 1; //m/s^2
+    private const double MAX_ACCEl = 100; //m/s^2
     private TimeDepPosition lastPos;
 
     public PlatformController(Platform p){
@@ -39,8 +38,8 @@ class PlatformController{
         Translations t = new Translations(newp.pp, oldp.pp);
 
         foreach (var trans in t.getArr())
-        {   
-            if(trans.calcAccel(deltaT) > MAX_ACCEl){
+        {
+            if (trans.calcAccel(deltaT) > MAX_ACCEl){
                 trans.meetAccelSpec(MAX_ACCEl, deltaT);
             }
         }
@@ -95,11 +94,20 @@ class Translation{
     }
 
     public double calcAccel(long t_milli){
-        return Math.Abs(200 * (last - first) / Math.Pow(t_milli, 2));
+        return Math.Abs(1000 * (last - first) / Math.Pow(t_milli, 2));
     }
 
-    public int meetAccelSpec(double maxAccel, long t_milli){
-        return this.last = (int)((maxAccel * Math.Pow(t_milli,2) / 200) + this.first);
+    public void meetAccelSpec(double maxAccel, long t_milli)
+    {
+        int tempCalc = (int)(((maxAccel * Math.Pow(t_milli, 2))/ 1000) + this.first);
+        if (this.last < 0)
+        {
+            this.last = tempCalc * -1;
+        }
+        else
+        {
+            this.last = tempCalc;
+        }
     }
 
     public int getLast(){

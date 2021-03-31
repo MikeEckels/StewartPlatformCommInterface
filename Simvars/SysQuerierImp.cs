@@ -100,12 +100,9 @@ namespace SimWatcher
             }
         }
         //DELETE THIS IN FUTURE
-        Stopwatch sw = new Stopwatch();
         public void requestSimData(object sender, EventArgs e)
         {
             scc.requestSimData();
-            sw.Start();
-            Console.WriteLine("Data requested");
             //hashtable should have received all of the data by the next call of this function
             q.Enqueue(svl.getTable());
         }
@@ -126,9 +123,6 @@ namespace SimWatcher
 
         private void dataReceived(object sender, EventArgs e)
         {
-            sw.Stop();
-            Console.WriteLine("---- Time Elapsed: " + sw.ElapsedMilliseconds + "    ------") ;
-            sw.Reset();
             var x = (DataReceivedEventArgs)e;
             svl.setKeyValue(x.name, x.value);
         }
