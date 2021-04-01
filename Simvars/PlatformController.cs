@@ -5,17 +5,19 @@ using System.Collections.Generic;
 
 class PlatformController{
     private Platform p;
-    private const double MAX_ACCEl = 1; //m/s^2
+    private const double MAX_ACCEL = 18; //m/s^2
     private TimeDepPosition lastPos;
 
     public PlatformController(Platform p){
         this.p = p;
-        Queue<TimeDepPosition> q= new Queue<TimeDepPosition>(5); //Should be using "MAX_QUEUE_COUNT". Do we need a getter in "SysQuerierImp.cs" or make it public ??
     }
 
     public void initialize(){
         PlatformPosition initial = PlatformPosition.neutralPosition();
         lastPos = new TimeDepPosition(initial);
+        p.SetFunctionCode(0x1401);//Relative time
+        p.SetChannelCode(1);//Six axis mode
+        p.SetMoveTimeMs(1); //Request Freq / 2. Should not hardcode this. Need a getter.
         setPosition(initial);
         p.Move();
     }
@@ -40,8 +42,8 @@ class PlatformController{
 
         foreach (var trans in t.getArr())
         {   
-            if(trans.calcAccel(deltaT) > MAX_ACCEl){
-                trans.meetAccelSpec(MAX_ACCEl, deltaT);
+            if(trans.calcAccel(deltaT) > MAX_ACCEL){
+                trans.meetAccelSpec(MAX_ACCEL, deltaT);
             }
         }
         returnPos.pp = t.buildPlatPositionObject();
@@ -95,11 +97,11 @@ class Translation{
     }
 
     public double calcAccel(long t_milli){
-        return Math.Abs(200 * (last - first) / Math.Pow(t_milli, 2));
+        return ((2 * ((last - first) / 1000)) / (Math.Pow((t_milli / 1000), 2)));
     }
 
     public int meetAccelSpec(double maxAccel, long t_milli){
-        return this.last = (int)((maxAccel * Math.Pow(t_milli,2) / 200) + this.first);
+        return this.last = (int)(((0.5) * (maxAccel) * (Math.Pow((t_milli / 1000), 2)) + (this.first / 1000)) * 1000);
     }
 
     public int getLast(){
