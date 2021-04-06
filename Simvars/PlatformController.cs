@@ -97,7 +97,7 @@ class Translation{
     }
 
     public double calcAccel(long t_milli){
-        return ((2 * ((last - first) / 1000)) / (Math.Pow((t_milli / 1000), 2)));
+        return Math.Abs(((2 * ((last - first) / 1000)) / (Math.Pow((t_milli / 1000), 2))));
     }
 
     public int meetAccelSpec(double maxAccel, long t_milli){
