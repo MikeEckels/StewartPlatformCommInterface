@@ -4,11 +4,7 @@ using System.Collections.Generic;
 
 class PlatformController{
     private Platform p;
-<<<<<<< HEAD
-    private const double MAX_ACCEl = 100; //m/s^2
-=======
     private const double MAX_ACCEL = 18; //m/s^2
->>>>>>> IntegrationBranchFixes
     private TimeDepPosition lastPos;
 
     public PlatformController(Platform p){
@@ -44,21 +40,15 @@ class PlatformController{
         Translations t = new Translations(newp.pp, oldp.pp);
 
         foreach (var trans in t.getArr())
-<<<<<<< HEAD
         {
-            if (trans.calcAccel(deltaT) > MAX_ACCEl){
-                trans.meetAccelSpec(MAX_ACCEl, deltaT);
-=======
-        {   
-            if(trans.calcAccel(deltaT) > MAX_ACCEL){
+            if (trans.calcAccel(deltaT) > MAX_ACCEL)
+            {
                 trans.meetAccelSpec(MAX_ACCEL, deltaT);
->>>>>>> IntegrationBranchFixes
             }
-        }
+        }   
         returnPos.pp = t.buildPlatPositionObject();
         return returnPos;
     }
-
 }
 class Translations{
     private List<Translation> t = new List<Translation>();
@@ -106,28 +96,21 @@ class Translation{
     }
 
     public double calcAccel(long t_milli){
-<<<<<<< HEAD
-        return Math.Abs(1000 * (last - first) / Math.Pow(t_milli, 2));
-    }
-
-    public void meetAccelSpec(double maxAccel, long t_milli)
-    {
-        int tempCalc = (int)(((maxAccel * Math.Pow(t_milli, 2))/ 1000) + this.first);
-        if (this.last < 0)
-        {
-            this.last = tempCalc * -1;
-        }
-        else
-        {
-            this.last = tempCalc;
-        }
-=======
         return Math.Abs(((2 * ((last - first) / 1000)) / (Math.Pow((t_milli / 1000), 2))));
     }
 
-    public int meetAccelSpec(double maxAccel, long t_milli){
+    public double meetAccelSpec(double maxAccel, long t_milli)
+    {
+        //int tempCalc = (int)(((maxAccel * Math.Pow(t_milli, 2))/ 1000) + this.first);
+        //if (this.last < 0)
+        //{
+        //    this.last = tempCalc * -1;
+        //}
+        //else
+        //{
+        //    this.last = tempCalc;
+        //}
         return this.last = (int)(((0.5) * (maxAccel) * (Math.Pow((t_milli / 1000), 2)) + (this.first / 1000)) * 1000);
->>>>>>> IntegrationBranchFixes
     }
 
     public int getLast(){
