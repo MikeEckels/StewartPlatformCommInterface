@@ -163,6 +163,21 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	client.Send(this->udpSendBuffer, udpSendBufferSize);
 }
 
+bool Platform::FollowPath(std::string filename, std::string delimeter, int numColumns) {
+	//CSVReader* fileReader = new CSVReader(filename, delimeter);
+	CSVReader fileReader(filename, delimeter);
+	fileReader.GetData();
+
+	for (int i = 1; i < numColumns; i++) {
+		ActuatorLengths nextMove = fileReader.ParseData(i);
+		if (Platform::SetPosition(nextMove.X, nextMove.Y, nextMove.Z, nextMove.U, nextMove.V, nextMove.W)) {
+			Platform::Move();
+		}
+		Sleep(1000);
+	}
+	return true;
+}
+
 ActuatorLengths Platform::GetPositionSteps() {
 	ActuatorLengths al;
 	//Need to update to actually read from platform position buffer.

@@ -2,6 +2,7 @@
 #include "Vector.h"
 #include "Rotation.h"
 #include "UDPClient.h"
+#include "CSVReader.h"
 #include "Actuators.h"
 #include "ActuatorLengths.h"
 #include "MotorControllerParams.h"
@@ -48,6 +49,8 @@ public:
 	void SetMoveTimeMs(int32_t milliseconds);
 	bool SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
 	void SetRegister(unsigned short channelCode, unsigned short registerAddress, short value);
+
+	bool FollowPath(std::string filename, std::string delimeter, int numColumns);
 
 	ActuatorLengths GetPositionSteps();
 };

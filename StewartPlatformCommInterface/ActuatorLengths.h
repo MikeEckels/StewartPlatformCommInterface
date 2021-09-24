@@ -9,6 +9,7 @@ struct ActuatorLengths {
 	double X = 0.0;
 	double Y = 0.0;
 	double Z = 0.0;
+	int timeStep = 0;
 	bool constraintSuccess = false;
 
 	ActuatorLengths() {}

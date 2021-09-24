@@ -4,7 +4,7 @@
 #include <string>
 
 Platform platform;
-CSVReader fileReader("C:/Users/Mike/Desktop/TestFile.csv", ",");
+//CSVReader fileReader("C:/Users/Admin/Desktop/TestFile.csv", ",");
 
 bool moveIsSafe = 0;
 void checkMove(bool state);//Prototype
@@ -16,27 +16,11 @@ int main() {
 	platform.SetFunctionCode(FunctionCodes::absoluteTime);
 	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
 	platform.SetMoveTimeMs(1);
-	platform.SetPosition(0, 0, 230, 0, 0, 0);
-	platform.Move();
+	//platform.SetPosition(0, 0, 230, 0, 0, 0);
+	//platform.Move();
 	Sleep(1000);
 
-	std::vector<std::vector<std::string>> dataList = fileReader.getData();
-
-	int row = 0;
-	int column = 0;
-	for (std::vector<std::string> vec : dataList) {
-		row++;
-		std::cout << row << std::endl;
-		for (std::string data : vec) {
-			if (column + 1 > 9) {
-				column = 0;
-			}
-			column++;
-			std::cout << column;
-			//std::cout << data << " , ";
-		}
-		std::cout << std::endl;
-	}
+	platform.FollowPath("C:/Users/Admin/Desktop/TestFile.csv", ",", 10);
 
 	//for (double i = 0; i < 360 * 4; i += 10.0) {
 	//	double x = sin(i * 3.14159 / 180.0) * 20.0;
