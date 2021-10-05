@@ -12,11 +12,11 @@ private:
 	std::string fileName;
 	std::string delimeter;
 
-	std::vector<std::vector<std::string>> dataList;
+	std::vector<std::vector<std::string>> dataList; //Rows<columns<string data>>
 
 public:
 	CSVReader(std::string fileName, std::string dellimeter);
 
-	void GetData();
-	ActuatorLengths ParseData(int line);
+	int GetData();
+	ActuatorLengths ParseData(int row);
 };

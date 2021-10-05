@@ -1,19 +1,24 @@
 ﻿//using System;
 //using PlatformLibrary;
 
-//namespace PlatformController {
-//    class Program {
+//namespace PlatformController
+//{
+//    class Program
+//    {
 
 //        static Platform platform = new Platform();
 
 //        static bool moveIsSafe = false;
 
-//        static void checkMove(bool state) {
-//            if (state) {
+//        static void checkMove(bool state)
+//        {
+//            if (state)
+//            {
 //                Console.WriteLine("[+] Wrapper Move Command Valid, Moving");
 //                platform.Move();
 //            }
-//            else {
+//            else
+//            {
 //                Console.WriteLine("[!] Wrapper Move Command Invalid");
 //            }
 
@@ -25,12 +30,14 @@
 //            Console.WriteLine("W Steps: {0:F6}", platform.GetPositionSteps().W);
 
 //        }
-//        static void Main(string[] args) {
+//        static void Main(string[] args)
+//        {
 //            platform.SetFunctionCode(0x1301);
 //            platform.SetChannelCode(1);
 //            platform.SetMoveTimeMs(1);
 
-//            for (double i = 0; i < 360 * 4; i += 10.0) {
+//            for (double i = 0; i < 360 * 4; i += 10.0)
+//            {
 //                double x = Math.Sin(i * 3.14159 / 180.0) * 20.0;
 //                double y = Math.Cos(i * 3.14159 / 180.0) * 20.0;
 //                double yaw = 0;// Math.Cos(i * 3.14159 / 180.0 * 2) * 20.0;
@@ -38,7 +45,7 @@
 //                checkMove(moveIsSafe);
 //                System.Threading.Thread.Sleep(100);
 //            }
-              
+
 //            checkMove(moveIsSafe);
 
 //            Console.ReadKey();

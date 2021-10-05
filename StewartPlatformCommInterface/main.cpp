@@ -4,7 +4,6 @@
 #include <string>
 
 Platform platform;
-//CSVReader fileReader("C:/Users/Admin/Desktop/TestFile.csv", ",");
 
 bool moveIsSafe = 0;
 void checkMove(bool state);//Prototype
@@ -20,7 +19,7 @@ int main() {
 	//platform.Move();
 	Sleep(1000);
 
-	platform.FollowPath("C:/Users/Admin/Desktop/TestFile.csv", ",", 10);
+	platform.FollowPath("C:/Users/Mike/Desktop/TestFile.csv", ",");
 
 	//for (double i = 0; i < 360 * 4; i += 10.0) {
 	//	double x = sin(i * 3.14159 / 180.0) * 20.0;

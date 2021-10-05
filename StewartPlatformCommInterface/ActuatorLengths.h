@@ -33,6 +33,6 @@ struct ActuatorLengths {
 		std::string z = Mathematics::DoubleToCleanString(this->Z);
 		std::string c = constraintSuccess ? "true" : "false";
 
-		return "[" + u + ", " + v + ", " + w + ", " + x + ", " + y + ", " + z + ", " + c + "]";
+		return "[" + x + ", " + y + ", " + z + ", " + u + ", " + v + ", " + w + ", " + c + "]";
 	}
 };

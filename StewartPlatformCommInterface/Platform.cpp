@@ -37,6 +37,14 @@ int32_t UDPData::zPos = 0x00000000;
 int32_t UDPData::uPos = 0x00000000;
 int32_t UDPData::vPos = 0x00000000;
 int32_t UDPData::wPos = 0x00000000;
+int32_t UDPData::xPosRaw = 0x00000000;
+int32_t UDPData::yPosRaw = 0x00000000;
+int32_t UDPData::zPosRaw = 0x00000000;
+int32_t UDPData::uPosRaw = 0x00000000;
+int32_t UDPData::vPosRaw = 0x00000000;
+int32_t UDPData::wPosRaw = 0x00000000;
+
+bool UDPData::constraintSuccess = 0;
 
 unsigned short UDPData::digitalOutCode = 0x0000;
 unsigned short UDPData::dac1Code = 0x0000;
@@ -132,12 +140,21 @@ void Platform::SetMoveTimeMs(int32_t ms) {
 bool Platform::SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
 	ActuatorLengths aL = CalculateIK(Vector3D((double)x, (double)y, (double)z), EulerAngles(Vector3D((double)u, (double)v, (double)w), EulerConstants::EulerOrderXYZR));//Change to relative rotation
 	//std::cout << aL.ToString() << std::endl;
-	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.X, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::uPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.U, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::vPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.V, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::wPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.W, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::xPosRaw = x;
+	UDPData::yPosRaw = y;
+	UDPData::zPosRaw = z;
+	UDPData::uPosRaw = u;
+	UDPData::vPosRaw = v;
+	UDPData::wPosRaw = w;
+
+	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.X, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.Y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.Z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::uPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.U, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::vPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.V, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::wPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.W, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+
+	UDPData::constraintSuccess = aL.constraintSuccess;
 	return aL.constraintSuccess;
 }
 
@@ -163,19 +180,36 @@ void Platform::SetRegister(unsigned short channelCode, unsigned short registerAd
 	client.Send(this->udpSendBuffer, udpSendBufferSize);
 }
 
-bool Platform::FollowPath(std::string filename, std::string delimeter, int numColumns) {
-	//CSVReader* fileReader = new CSVReader(filename, delimeter);
+bool Platform::FollowPath(std::string filename, std::string delimeter) {
 	CSVReader fileReader(filename, delimeter);
-	fileReader.GetData();
+	int numRows = fileReader.GetData();
 
-	for (int i = 1; i < numColumns; i++) {
+	for (int i = 1; i < numRows; i++) { //Start at 1 to ignore heading. i.e "X, Y, Z, U, V, W, TIME Ms"
 		ActuatorLengths nextMove = fileReader.ParseData(i);
-		if (Platform::SetPosition(nextMove.X, nextMove.Y, nextMove.Z, nextMove.U, nextMove.V, nextMove.W)) {
+		if (Platform::SetPosition((int32_t)nextMove.X, (int32_t)nextMove.Y, (int32_t)nextMove.Z, (int32_t)nextMove.U, (int32_t)nextMove.V, (int32_t)nextMove.W)) {
 			Platform::Move();
+			std::cout << "Moving to waypoint " << i << ": " << GetPosition().ToString() << " in " << nextMove.timeStep << " Steps" << std::endl;
+		}
+		else {
+			std::cout << "[!] Invalid waypoint " << i << ": " << GetPosition().ToString() << std::endl;
 		}
 		Sleep(1000);
 	}
 	return true;
+}
+
+ActuatorLengths Platform::GetPosition() {
+	ActuatorLengths al;
+	//Need to update to actually read from platform position buffer.
+	al.X = UDPData::xPosRaw;
+	al.Y = UDPData::yPosRaw;
+	al.Z = UDPData::zPosRaw;
+	al.U = UDPData::uPosRaw;
+	al.V = UDPData::vPosRaw;
+	al.W = UDPData::wPosRaw;
+	al.constraintSuccess = UDPData::constraintSuccess;
+
+	return al;
 }
 
 ActuatorLengths Platform::GetPositionSteps() {
@@ -187,7 +221,7 @@ ActuatorLengths Platform::GetPositionSteps() {
 	al.U = UDPData::uPos;
 	al.V = UDPData::vPos;
 	al.W = UDPData::wPos;
-	//al.constraintSuccess = 
+	al.constraintSuccess = UDPData::constraintSuccess;
 
 	return al;
 }

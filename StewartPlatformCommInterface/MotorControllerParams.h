@@ -105,6 +105,14 @@ struct UDPData {
 	static int32_t vPos;
 	static int32_t wPos;
 
+	static int32_t xPosRaw;
+	static int32_t yPosRaw;
+	static int32_t zPosRaw;
+	static int32_t uPosRaw;
+	static int32_t vPosRaw;
+	static int32_t wPosRaw;
+	static bool constraintSuccess;
+
 	static unsigned short digitalOutCode;
 	static unsigned short dac1Code;
 	static unsigned short dac2Code;

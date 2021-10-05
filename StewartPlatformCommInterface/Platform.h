@@ -50,7 +50,8 @@ public:
 	bool SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
 	void SetRegister(unsigned short channelCode, unsigned short registerAddress, short value);
 
-	bool FollowPath(std::string filename, std::string delimeter, int numColumns);
+	bool FollowPath(std::string filename, std::string delimeter);
 
+	ActuatorLengths GetPosition();
 	ActuatorLengths GetPositionSteps();
 };

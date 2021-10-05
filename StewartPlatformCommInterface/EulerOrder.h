@@ -4,26 +4,26 @@
 
 typedef struct EulerOrder {
 public:
-	enum Axis
+	enum class Axis
 	{
 		X,
 		Y,
 		Z
 	};
 
-	enum Parity
+	enum class Parity
 	{
 		Even,
 		Odd
 	};
 
-	enum AxisRepetition
+	enum class AxisRepetition
 	{
 		Yes,
 		No
 	};
 
-	enum AxisFrame
+	enum class AxisFrame
 	{
 		Static,
 		Rotating
