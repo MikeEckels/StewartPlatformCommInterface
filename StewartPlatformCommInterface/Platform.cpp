@@ -196,6 +196,7 @@ bool Platform::FollowPath(std::string filename, std::string delimeter) {
 	for (int i = 1; i < numRows; i++) { //Start at 1 to ignore heading. i.e "X, Y, Z, U, V, W, TIME Ms"
 		ActuatorLengths nextMove = fileReader.ParseData(i);
 		if (Platform::SetPosition((int32_t)nextMove.X, (int32_t)nextMove.Y, (int32_t)nextMove.Z, (int32_t)nextMove.U, (int32_t)nextMove.V, (int32_t)nextMove.W)) {
+			Platform::SetMoveTimeMs((int32_t)nextMove.timeStep);
 			Platform::Move();
 			std::cout << "Moving to waypoint " << i << ": " << GetPosition().ToString() << " in " << nextMove.timeStep << " Ms" << std::endl;
 		}

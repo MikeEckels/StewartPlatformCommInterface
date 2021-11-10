@@ -14,7 +14,7 @@ int main() {
 	
 	platform.SetFunctionCode(FunctionCodes::relativeTime);
 	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
-	platform.SetMoveTimeMs(10);
+	//platform.SetMoveTimeMs(10);
 	//platform.SetPosition(0, 0, 230, 0, 0, 0);
 	//platform.Move();
 	Sleep(1000);
