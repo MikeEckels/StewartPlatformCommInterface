@@ -12,9 +12,9 @@ int main() {
 	/*platform.Reset();
 	Sleep(15000);*/
 	
-	platform.SetFunctionCode(FunctionCodes::absoluteTime);
+	platform.SetFunctionCode(FunctionCodes::relativeTime);
 	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
-	platform.SetMoveTimeMs(1);
+	platform.SetMoveTimeMs(10);
 	//platform.SetPosition(0, 0, 230, 0, 0, 0);
 	//platform.Move();
 	Sleep(1000);

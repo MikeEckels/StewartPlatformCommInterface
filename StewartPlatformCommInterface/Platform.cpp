@@ -8,6 +8,7 @@ const double PlatformParams::platformMountingAngle = 10.613;//arc angle between 
 const double PlatformParams::baseHeight = 850.9;//platform height from ground when at 0,0,0 -> 850.9
 const double PlatformParams::maximumLength = 460.0;//Maximum actuator stroke actual is 475. 460 is for safety
 double PlatformParams::baseActuatorLength = 0;//leave this alone, used in IK
+int32_t PlatformParams::desiredMoveTime = 0x00000000;
 
 //Initializing Motor Parameters
 const float MotorParams::cylinderStrokeMM = (float)PlatformParams::maximumLength;
@@ -85,6 +86,15 @@ void Platform::Stop() {
 
 //Generate data buffer and send over UDP
 void Platform::Move() {
+
+	if (UDPData::functionCode == FunctionCodes::relativeTime) {
+		AddMovement();
+		UDPData::time = PlatformParams::desiredMoveTime;
+	}
+	else {
+		UDPData::time += PlatformParams::desiredMoveTime;
+	}
+
 	this->udpTxBuffer[UDPWordOffsets::confirmCodeOffset] = (short)FlipUShortBytes(UDPData::confirmCode);
 	this->udpTxBuffer[UDPWordOffsets::passOffset] = (short)FlipUShortBytes(UDPData::passCode);
 	this->udpTxBuffer[UDPWordOffsets::functionCodeOffset] = (short)FlipUShortBytes(UDPData::functionCode);
@@ -118,7 +128,6 @@ void Platform::Move() {
 	//runUDPClient(std::to_string(UDPData::platformRxPort),this->udpSendBuffer, udpSendBufferSize);
 	//client.PrintSendBuffer(this->udpSendBuffer, udpSendBufferSize);
 	client.Send(this->udpSendBuffer, udpSendBufferSize);
-	AddMovement();
 }
 
 //Sets Platform function register
@@ -133,7 +142,7 @@ void Platform::SetChannelCode(int32_t code) {
 
 //Sets time to move from point A to point B
 void Platform::SetMoveTimeMs(int32_t ms) {
-	UDPData::time = ms;
+	PlatformParams::desiredMoveTime = ms;
 }
 
 //Sets platform position in X,Y,Z,R,P,Y, calculates IK, and calculates encoder pulses per actuator to move desired distance
@@ -188,12 +197,12 @@ bool Platform::FollowPath(std::string filename, std::string delimeter) {
 		ActuatorLengths nextMove = fileReader.ParseData(i);
 		if (Platform::SetPosition((int32_t)nextMove.X, (int32_t)nextMove.Y, (int32_t)nextMove.Z, (int32_t)nextMove.U, (int32_t)nextMove.V, (int32_t)nextMove.W)) {
 			Platform::Move();
-			std::cout << "Moving to waypoint " << i << ": " << GetPosition().ToString() << " in " << nextMove.timeStep << " Steps" << std::endl;
+			std::cout << "Moving to waypoint " << i << ": " << GetPosition().ToString() << " in " << nextMove.timeStep << " Ms" << std::endl;
 		}
 		else {
 			std::cout << "[!] Invalid waypoint " << i << ": " << GetPosition().ToString() << std::endl;
 		}
-		Sleep(1000);
+		Sleep((int32_t)nextMove.timeStep);
 	}
 	return true;
 }

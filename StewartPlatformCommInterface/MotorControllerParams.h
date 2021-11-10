@@ -9,6 +9,7 @@ struct PlatformParams {
 	const static double baseHeight;
 	const static double maximumLength;
 	static double baseActuatorLength;
+	static int32_t desiredMoveTime;
 };
 
 struct MotorParams {
