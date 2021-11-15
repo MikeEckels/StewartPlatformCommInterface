@@ -13,10 +13,10 @@ struct PlatformParams {
 };
 
 struct MotorParams {
-	const static float cylinderStrokeMM;
-	const static float cylinderLeadMM;
+	const static double cylinderStrokeMM;
+	const static double cylinderLeadMM;
 	const static uint32_t cylinderPulsePerRev;
-	const static float cylinderGearRatio;
+	const static double cylinderGearRatio;
 };
 
 struct CxRegister {
@@ -106,12 +106,12 @@ struct UDPData {
 	static int32_t vPos;
 	static int32_t wPos;
 
-	static int32_t xPosRaw;
-	static int32_t yPosRaw;
-	static int32_t zPosRaw;
-	static int32_t uPosRaw;
-	static int32_t vPosRaw;
-	static int32_t wPosRaw;
+	static double xPosRaw;
+	static double yPosRaw;
+	static double zPosRaw;
+	static double uPosRaw;
+	static double vPosRaw;
+	static double wPosRaw;
 	static bool constraintSuccess;
 
 	static unsigned short digitalOutCode;

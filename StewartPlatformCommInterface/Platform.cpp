@@ -11,9 +11,9 @@ double PlatformParams::baseActuatorLength = 0;//leave this alone, used in IK
 int32_t PlatformParams::desiredMoveTime = 0x00000000;
 
 //Initializing Motor Parameters
-const float MotorParams::cylinderStrokeMM = (float)PlatformParams::maximumLength;
-const float MotorParams::cylinderLeadMM = 5.0f;
-const float MotorParams::cylinderGearRatio = 1.0f;
+const double MotorParams::cylinderStrokeMM = PlatformParams::maximumLength;
+const double MotorParams::cylinderLeadMM = 5.0;
+const double MotorParams::cylinderGearRatio = 1.0;
 const uint32_t MotorParams::cylinderPulsePerRev = 7500;
 
 //Initializing Platform UDP ByteStream
@@ -38,12 +38,12 @@ int32_t UDPData::zPos = 0x00000000;
 int32_t UDPData::uPos = 0x00000000;
 int32_t UDPData::vPos = 0x00000000;
 int32_t UDPData::wPos = 0x00000000;
-int32_t UDPData::xPosRaw = 0x00000000;
-int32_t UDPData::yPosRaw = 0x00000000;
-int32_t UDPData::zPosRaw = 0x00000000;
-int32_t UDPData::uPosRaw = 0x00000000;
-int32_t UDPData::vPosRaw = 0x00000000;
-int32_t UDPData::wPosRaw = 0x00000000;
+double UDPData::xPosRaw = 0x00000000;
+double UDPData::yPosRaw = 0x00000000;
+double UDPData::zPosRaw = 0x00000000;
+double UDPData::uPosRaw = 0x00000000;
+double UDPData::vPosRaw = 0x00000000;
+double UDPData::wPosRaw = 0x00000000;
 
 bool UDPData::constraintSuccess = 0;
 
@@ -146,8 +146,8 @@ void Platform::SetMoveTimeMs(int32_t ms) {
 }
 
 //Sets platform position in X,Y,Z,R,P,Y, calculates IK, and calculates encoder pulses per actuator to move desired distance
-bool Platform::SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w) {
-	ActuatorLengths aL = CalculateIK(Vector3D((double)x, (double)y, (double)z), EulerAngles(Vector3D((double)u, (double)v, (double)w), EulerConstants::EulerOrderXYZR));//Change to relative rotation
+bool Platform::SetPosition(double x, double y, double z, double u, double v, double w) {
+	ActuatorLengths aL = CalculateIK(Vector3D(x, y, z), EulerAngles(Vector3D(u, v, w), EulerConstants::EulerOrderXYZR));//Change to relative rotation
 	//std::cout << aL.ToString() << std::endl;
 	UDPData::xPosRaw = x;
 	UDPData::yPosRaw = y;
@@ -156,12 +156,12 @@ bool Platform::SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v
 	UDPData::vPosRaw = v;
 	UDPData::wPosRaw = w;
 
-	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.X, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.Y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.Z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::uPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.U, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::vPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.V, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
-	UDPData::wPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, (float)aL.W, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::xPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.X, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::yPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Y, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::zPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.Z, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::uPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.U, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::vPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.V, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
+	UDPData::wPos = (int32_t)GetPulseCount(MotorParams::cylinderGearRatio, aL.W, MotorParams::cylinderLeadMM, MotorParams::cylinderPulsePerRev);
 
 	UDPData::constraintSuccess = aL.constraintSuccess;
 	return aL.constraintSuccess;
@@ -193,15 +193,15 @@ bool Platform::FollowPath(std::string filename, std::string delimeter) {
 	CSVReader fileReader(filename, delimeter);
 	int numRows = fileReader.GetData();
 
-	for (int i = 1; i < numRows; i++) { //Start at 1 to ignore heading. i.e "X, Y, Z, U, V, W, TIME Ms"
+	for (int i = 1; i < numRows; i++) { //Start at 1 to ignore heading. i.e "X, Y, Z, U, V, W, MoveTime(ms)"
 		ActuatorLengths nextMove = fileReader.ParseData(i);
-		if (Platform::SetPosition((int32_t)nextMove.X, (int32_t)nextMove.Y, (int32_t)nextMove.Z, (int32_t)nextMove.U, (int32_t)nextMove.V, (int32_t)nextMove.W)) {
-			Platform::SetMoveTimeMs((int32_t)nextMove.timeStep);
+		if (Platform::SetPosition(nextMove.X, nextMove.Y, nextMove.Z, nextMove.U, nextMove.V, nextMove.W)) {
+			Platform::SetMoveTimeMs(nextMove.timeStep);
 			Platform::Move();
-			std::cout << "Moving to waypoint " << i << ": " << GetPosition().ToString() << " in " << nextMove.timeStep << " Ms" << std::endl;
+			std::cout << "Moving to waypoint at row " << i + 1 << ": " << GetPosition().ToString() << " in " << nextMove.timeStep << " Ms" << std::endl;
 		}
 		else {
-			std::cout << "[!] Invalid waypoint " << i << ": " << GetPosition().ToString() << std::endl;
+			std::cout << "[!] Invalid waypoint at row " << i + 1 << ": " << GetPosition().ToString() << std::endl;
 		}
 		Sleep((int32_t)nextMove.timeStep);
 	}
@@ -293,7 +293,7 @@ void Platform::ShortArryToByteArry(short* shortArry, unsigned char* byteArry, in
 }
 
 //Calculates number of encoder pulses based on actuator parameters and desired distance to move
-uint32_t Platform::GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev) {
+uint32_t Platform::GetPulseCount(double gearRatio, double desiredDistance, double maxDistance, uint32_t pulsePerRev) {
 	uint32_t numPulses;
 
 	numPulses = (uint32_t)((gearRatio * desiredDistance * pulsePerRev) / (maxDistance));

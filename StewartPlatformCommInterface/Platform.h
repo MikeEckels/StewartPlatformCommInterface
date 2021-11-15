@@ -32,7 +32,7 @@ private:
 	void AddMovement();
 	void ShortArryToByteArry(short* shortArry, unsigned char* byteArry, int shortArrySize);
 
-	uint32_t GetPulseCount(float gearRatio, float desiredDistance, float maxDistance, uint32_t pulsePerRev);
+	uint32_t GetPulseCount(double gearRatio, double desiredDistance, double maxDistance, uint32_t pulsePerRev);
 
 	ActuatorLengths CalculateIK(Vector3D XYZ);
 	ActuatorLengths CalculateIK(Vector3D XYZ, EulerAngles YPR);
@@ -47,7 +47,7 @@ public:
 	void SetFunctionCode(int32_t code);
 	void SetChannelCode(int32_t code);
 	void SetMoveTimeMs(int32_t milliseconds);
-	bool SetPosition(int32_t x, int32_t y, int32_t z, int32_t u, int32_t v, int32_t w);
+	bool SetPosition(double x, double y, double z, double u, double v, double w);
 	void SetRegister(unsigned short channelCode, unsigned short registerAddress, short value);
 
 	bool FollowPath(std::string filename, std::string delimeter);

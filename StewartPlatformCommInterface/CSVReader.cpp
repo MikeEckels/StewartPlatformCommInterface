@@ -32,7 +32,7 @@ ActuatorLengths CSVReader::ParseData(int row) {
 			}
 
 			if (rowCount == row) {
-				if (std::isdigit(data[0])) {
+				if (std::isdigit(data[0]) || data[0] == '-') {
 					switch (columnCount) {
 					case 0:
 						//std::cout << data;
