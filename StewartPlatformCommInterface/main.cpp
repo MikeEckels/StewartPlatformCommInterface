@@ -14,22 +14,22 @@ int main() {
 	
 	platform.SetFunctionCode(FunctionCodes::relativeTime);
 	platform.SetChannelCode(UDPRegisterChannels::sixAxisChannel);
-	//platform.SetMoveTimeMs(10);
-	//platform.SetPosition(0.0, 0.0, 230.0, 0.0, 0.0, 0.0);
-	//platform.Move();
+	platform.SetMoveTimeMs(10);
+	platform.SetPosition(0.0, 0.0, 230.0, 0.0, 0.0, 0.0);
+	platform.Move();
 	Sleep(1000);
 
 	//platform.FollowPath("C:/Users/Mike/Desktop/TestFile.csv", ",");
 	platform.FollowPath("C:/Users/Mike/Desktop/Vibration_Trial.csv", ",");
 
-	//for (double i = 0; i < 360 * 4; i += 10.0) {
-	//	double x = sin(i * 3.14159 / 180.0) * 20.0;
-	//	double y = cos(i * 3.14159 / 180.0) * 20.0;
-	//	double yaw = 0;// cos(i * 3.14159 / 180.0 * 2) * 20.0;
-	//	moveIsSafe = platform.SetPosition(0, 0, 230, yaw, x, y);
-	//	checkMove(moveIsSafe);
-	//	Sleep(100);
-	//}
+	for (double i = 0; i < 360 * 4; i += 10.0) {
+		double x = sin(i * 3.14159 / 180.0) * 20.0;
+		double y = cos(i * 3.14159 / 180.0) * 20.0;
+		double yaw = 0;// cos(i * 3.14159 / 180.0 * 2) * 20.0;
+		moveIsSafe = platform.SetPosition(0, 0, 230, yaw, x, y);
+		checkMove(moveIsSafe);
+		Sleep(100);
+	}
 }
 
 void checkMove(bool state) {
