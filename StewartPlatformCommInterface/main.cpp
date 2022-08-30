@@ -20,7 +20,7 @@ int main() {
 	Sleep(1000);
 
 	//platform.FollowPath("C:/Users/Mike/Desktop/TestFile.csv", ",");
-	platform.FollowPath("C:/Users/Mike/Desktop/Vibration_Trial.csv", ",");
+	platform.FollowPath("C:/Users/Mike/Desktop/X_Trial_1.csv", ",");
 
 	//for (double i = 0; i < 360 * 4; i += 10.0) {
 	//	double x = sin(i * 3.14159 / 180.0) * 20.0;
